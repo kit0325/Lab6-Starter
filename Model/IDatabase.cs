@@ -10,5 +10,6 @@ namespace Lab6_Starter.Model
         AirportAdditionError InsertAirport(Airport airport);
         AirportDeletionError DeleteAirport(Airport airport);
         AirportEditError UpdateAirport(Airport replacementAirport);
+        ObservableCollection<Resource> SelectAllResources();
     }
 }

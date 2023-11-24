@@ -21,6 +21,13 @@ public class BusinessLogic : IBusinessLogic
         get { return GetAirports(); }
 
     }
+
+    public ObservableCollection<Resource> Resources
+    {
+        get { return GetResources(); }
+
+    }
+
     public BusinessLogic(IDatabase? db)
     {
         this.db = db;
@@ -126,19 +133,22 @@ public class BusinessLogic : IBusinessLogic
         int numAirportsUntilNextLevel;
 
         int numAirportsVisited = db.SelectAllAirports().Count;
-        if(numAirportsVisited < BRONZE_LEVEL)
+        if (numAirportsVisited < BRONZE_LEVEL)
         {
             nextLevel = FlyWisconsinLevel.Bronze;
             numAirportsUntilNextLevel = BRONZE_LEVEL - numAirportsVisited;
-        } else if(numAirportsVisited < SILVER_LEVEL)
+        }
+        else if (numAirportsVisited < SILVER_LEVEL)
         {
             nextLevel = FlyWisconsinLevel.Silver;
             numAirportsUntilNextLevel = SILVER_LEVEL - numAirportsVisited;
-        } else if(numAirportsVisited < GOLD_LEVEL)
+        }
+        else if (numAirportsVisited < GOLD_LEVEL)
         {
             nextLevel = FlyWisconsinLevel.Gold;
             numAirportsUntilNextLevel = GOLD_LEVEL - numAirportsVisited;
-        } else
+        }
+        else
         {
             nextLevel = FlyWisconsinLevel.None;
             numAirportsUntilNextLevel = 0;
@@ -153,6 +163,9 @@ public class BusinessLogic : IBusinessLogic
         return db.SelectAllAirports();
     }
 
-
+    public ObservableCollection<Resource> GetResources()
+    {
+        return db.SelectAllResources();
+    }
 }
 

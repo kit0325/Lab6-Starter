@@ -11,6 +11,7 @@ public class Database : IDatabase
     private String connString;
 
     ObservableCollection<Airport> airports = new();
+    ObservableCollection<Resource> resources = new();
 
     public Database()
     {
@@ -46,6 +47,28 @@ public class Database : IDatabase
         return airports;
     }
 
+    // Fills resources ObservableCollection with all the resources in the database
+     public ObservableCollection<Resource> SelectAllResources()
+     {
+         resources.Clear();
+         var conn = new NpgsqlConnection(connString);
+         conn.Open();
+
+         using var cmd = new NpgsqlCommand("SELECT link, name FROM resources", conn);
+         using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+         while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+         {
+             String link = reader.GetString(0);
+             String name = reader.GetString(1);
+             Resource resourceToAdd = new(link, name);
+             resources.Add(resourceToAdd);
+             Console.WriteLine(resourceToAdd);
+         }
+
+         return resources;
+     }
+     
     // Finds the airport with the given id, null if not found
     public Airport SelectAirport(String id)
     {
