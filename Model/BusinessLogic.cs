@@ -10,7 +10,7 @@ using Lab6_Starter;
 namespace Lab6_Starter.Model;
 
 
-public class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
+public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 {
     const int BRONZE_LEVEL = 42;
     const int SILVER_LEVEL = 84;
@@ -185,11 +185,11 @@ public class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
               numAirportsVisited, numAirportsVisited != 1 ? "s" : "", numAirportsUntilNextLevel, nextLevel);
     }
 
-    // Converts degrees to radians
-    public Double ToRadians(Double x)
-    {
-        return x * (Math.PI / 180);
-    }
+    // // Converts degrees to radians
+    // public Double ToRadians(Double x)
+    // {
+    //     return x * (Math.PI / 180);
+    // }
 
     // Calculate the distance (in NM) between two airports given their latitudes and longitudes
     public Double CalculateDistance(Tuple<Double, Double> latLong1, Tuple<Double, Double> latLong2)
@@ -289,6 +289,11 @@ public class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     public ObservableCollection<Resource> GetResources()
     {
         return db.SelectAllResources();
+    }
+
+    double IBusinessLogic.ToRadians(double x)
+    {
+        throw new NotImplementedException();
     }
 }
 

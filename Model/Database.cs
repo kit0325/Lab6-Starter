@@ -201,6 +201,30 @@ public class Database : IDatabase
     }
 
 
+    public Airport SelectWisconsinAirport(String id)
+    {
+        Airport airportToAdd = null;
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        using var cmd = new NpgsqlCommand("SELECT id, name, lat, long FROM wi_airports WHERE id = @id", conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+        if (reader.Read())
+        { // there should be only one row, so we don't need a while loop TODO: Sanity check
+
+            id = reader.GetString(0);
+            String city = reader.GetString(1);
+            float lat = reader.GetFloat(2);
+            float long_ = reader.GetFloat(3);
+            airportToAdd = new(id, city, DateTime.Now, 5);
+            airportToAdd.Latitude = lat;
+            airportToAdd.Longitude = long_;
+        }
+        return airportToAdd;
+    }
+
     // Builds a ConnectionString, which is used to connect to the database
     static String GetConnectionString()
     {

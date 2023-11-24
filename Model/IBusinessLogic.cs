@@ -11,8 +11,16 @@ public interface IBusinessLogic
     String CalculateStatistics();
     Double ToRadians(Double x);
     Double CalculateDistance(Tuple<Double, Double> latLong1, Tuple<Double, Double> latLong2);
-    
+
     ObservableCollection<NearbyAirport> CalculateAllAirportDist(String startAirportId, int distance);
     ObservableCollection<Airport> GetAirports();
     ObservableCollection<Resource> GetResources();
+
+    // RoutingStrategies
+    ObservableCollection<Airport> GetWisconsinAirports();
+
+    ObservableCollection<Route> CalculateRoutes(String id, int maxDist, bool isVisited);
+
+    ObservableCollection<Airport> FillDistances();
+    double CalculateDistance(Airport start, Airport end);
 }

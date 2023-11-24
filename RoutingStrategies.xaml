@@ -1,70 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             xmlns:model="clr-namespace:Lab6_Starter.Model"
              x:Class="Lab6_Starter.RoutingStrategies"
-             Title="RoutingStrategies">
+             xmlns:local="clr-namespace:Lab6_Starter"
+             Title="Routing Strategies">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding= "30,30,30,10" VerticalOptions="Start">
+            <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,0.2*">
+                <Label Grid.Row="0" Grid.Column="0" Text="Starting Airport: " VerticalOptions="Center" />
+                <Entry Grid.Row="0" Grid.Column="1" Placeholder="KATW" VerticalOptions="Center" 
+                        x:Name="AirportIdENT" />
 
-    <VerticalStackLayout Spacing="20" Padding= "30,30,30,10" VerticalOptions="Start">
-        <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*,0.2*">
-            <Label Grid.Row="0" Grid.Column="0" Text="Starting Airport: " 
-                   VerticalOptions="Center" />
-            <Entry Grid.Row="0" Grid.Column="1" Placeholder="KATW" 
-                   VerticalOptions="Center">
-            </Entry>
-            <Label Grid.Row="1" Grid.Column="0" Text="Max Distance: "
-                   VerticalOptions="Center" />
-            <Entry Grid.Row="1" Grid.Column="1" Placeholder="60" 
-                   VerticalOptions="Center">
-            </Entry>
-            <Label Grid.Row="1" Grid.Column="2" Text="km" 
-                   VerticalOptions="Center" />
-            <Label Grid.Row="2" Grid.Column="0" Text="Visited:" 
-                   VerticalOptions="Center" />
-            <Switch Grid.Row = "2" Grid.Column="1" IsToggled="true" 
-                    HorizontalOptions="Start"/>
-        </Grid>
-        <Label Text="Suggested Routes" FontSize="Large"></Label>
-        <Grid Padding="20,0" RowDefinitions="*" ColumnDefinitions="*,*,*">
-            <Label Grid.Row="0" Grid.Column="0" Text="Icao"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="City" 
-                   HorizontalOptions="Center"/>
-            <Label Grid.Row="0" Grid.Column="2" Text="Dist" 
-                   HorizontalOptions="End"/>
-        </Grid>
-        <ContentView Margin="0,-15,0,0" Padding="20, 10" BackgroundColor="AliceBlue" HeightRequest="200">
-            <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*,*">
-                <Label Grid.Row="0" Grid.Column="0" Text="KATW"/>
-                <Label Grid.Row="0" Grid.Column="1" Text="Appleton" 
-                       HorizontalOptions="Center"/>
-                <Label Grid.Row="0" Grid.Column="2" Text="0" 
-                       HorizontalOptions="End"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Max Distance: "
+                        VerticalOptions="Center" />
+                <Entry Grid.Row="1" Grid.Column="1" Placeholder="60" VerticalOptions="Center" 
+                        x:Name="MaxDistanceENT" />
 
-                <Label Grid.Row="1" Grid.Column="0" Text="KFLD"/>
-                <Label Grid.Row="1" Grid.Column="1" Text="Fond du Lac" 
-                       HorizontalOptions="Center"/>
-                <Label Grid.Row="1" Grid.Column="2" Text="29" 
-                       HorizontalOptions="End"/>
-
-                <Label Grid.Row="2" Grid.Column="0" Text="KUNU"/>
-                <Label Grid.Row="2" Grid.Column="1" Text="Dodge County" 
-                       HorizontalOptions="Center"/>
-                <Label Grid.Row="2" Grid.Column="2" Text="23" 
-                       HorizontalOptions="End"/>
-
-                <Label Grid.Row="3" Grid.Column="0" Text="KRUU"/>
-                <Label Grid.Row="3" Grid.Column="1" Text="Burlington" 
-                       HorizontalOptions="Center"/>
-                <Label Grid.Row="3" Grid.Column="2" Text="47" 
-                       HorizontalOptions="End"/>
-
-                <Label Grid.Row="4" Grid.Column="0" Text="KATW"/>
-                <Label Grid.Row="4" Grid.Column="1" Text="Appleton" 
-                       HorizontalOptions="Center"/>
-                <Label Grid.Row="4" Grid.Column="2" Text="95"  
-                       HorizontalOptions="End"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="km" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="0" Text="Visited:" 
+                        VerticalOptions="Center" />
+                <Switch Grid.Row="2" Grid.Column="1" x:Name="IsVisitedENT" 
+                        HorizontalOptions="Start"/>
             </Grid>
-        </ContentView>
-        <Label Text="Map" FontSize="Large"/>
-        <Image Source="wisconsin.png" HeightRequest="250" WidthRequest="250"></Image>
-    </VerticalStackLayout>
+            <Button Text="Find Route" TextColor="White" Clicked="CalculateRoute"/>
+            <!-- Header Grid -->
+            <Grid Padding="20,0" RowDefinitions="*" ColumnDefinitions="2*,2*,1*">
+                <Label Grid.Row="0" Grid.Column="0" Text="Route Number"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="Total Airports" />
+                <Label Grid.Row="0" Grid.Column="2" Text="Total Distance" HorizontalOptions="Center"/>
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding Routes}" Margin="0,-15,0,0" BackgroundColor="AliceBlue" EmptyView="No routes to display" HeightRequest="300">
+                <CollectionView.ItemTemplate>
+                    <!-- CollectionView ItemTemplate Grid -->
+                    <DataTemplate x:DataType="model:Route">
+                        <Grid Padding="20,0" RowDefinitions="Auto" ColumnDefinitions="2*,2*,1*">
+                            <Label Grid.Column="0" Text="{Binding RouteNumber}" VerticalOptions="Center"/>
+                            <Label Grid.Column="1" Text="{Binding TotalAirports}" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text="{Binding TotalDistance}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+               
+            </CollectionView>
+
+            <ContentView HeightRequest="500">
+
+                <maps:Map IsShowingUser="True" x:Name="map">
+                    <x:Arguments>
+                        <MapSpan>
+                            <x:Arguments>
+                                <sensors:Location>
+                                    <x:Arguments>
+                                        <x:Double>44.67718</x:Double>
+                                        <x:Double>-89.62513</x:Double>
+                                    </x:Arguments>
+                                </sensors:Location>
+                                <x:Double>7.0</x:Double>
+                                <x:Double>7.0</x:Double>
+                            </x:Arguments>
+                        </MapSpan>
+                    </x:Arguments>
+                </maps:Map>
+            </ContentView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -13,6 +13,9 @@ public class Airport : INotifyPropertyChanged
     Double latitude;
     Double longitude;
 
+    //Each Airport has a dictionary of every other Airport(Id) and the distance from itself to that airport
+     public Dictionary<string, double> distances = new();
+
     public String Id
     {
         get { return id; }
@@ -73,15 +76,15 @@ public class Airport : INotifyPropertyChanged
     }
 
     public Airport(String id, String city, DateTime dateVisited, int rating, Double latitude, Double longitude)
-     {
-         Id = id;
-         City = city;
-         DateVisited = dateVisited;
-         Rating = rating;
-         Latitude = latitude;
-         Longitude = longitude;
-     }
-     
+    {
+        Id = id;
+        City = city;
+        DateVisited = dateVisited;
+        Rating = rating;
+        Latitude = latitude;
+        Longitude = longitude;
+    }
+
     public Airport() { }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -90,6 +93,21 @@ public class Airport : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+
+    public double GetDistance(string otherAirportId)
+    {
+        if (distances.ContainsKey(otherAirportId))
+        {
+            return distances[otherAirportId];
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
 
     public override bool Equals(object obj)
     {
