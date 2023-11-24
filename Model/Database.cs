@@ -11,6 +11,7 @@ public class Database : IDatabase
     private String connString;
 
     ObservableCollection<Airport> airports = new();
+    ObservableCollection<Airport> wiAirports = new();
     ObservableCollection<Resource> resources = new();
 
     public Database()
@@ -18,7 +19,7 @@ public class Database : IDatabase
         connString = GetConnectionString();
     }
 
-    
+
 
     // Fills our local Airports ObservableCollection with all the airports in the database
     // We don't cache the airports in the database, so we have to go to the database to get them
@@ -47,28 +48,54 @@ public class Database : IDatabase
         return airports;
     }
 
+    // Fills wiAirports ObservableCollection with all Wisconsin airports in the database
+    public ObservableCollection<Airport> SelectAllWiAirports()
+    {
+        wiAirports.Clear();
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
+        using var cmd = new NpgsqlCommand("SELECT id, name, lat, long FROM wi_airports", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String id = reader.GetString(0);
+            String city = reader.GetString(1);
+            Double latitude = reader.GetDouble(2);
+            Double longitude = reader.GetDouble(3);
+            Airport airportToAdd = new(id, city, DateTime.MinValue, 1, latitude, longitude);
+            wiAirports.Add(airportToAdd);
+            Console.WriteLine(airportToAdd);
+        }
+
+        return wiAirports;
+    }
+
+
     // Fills resources ObservableCollection with all the resources in the database
-     public ObservableCollection<Resource> SelectAllResources()
-     {
-         resources.Clear();
-         var conn = new NpgsqlConnection(connString);
-         conn.Open();
+    public ObservableCollection<Resource> SelectAllResources()
+    {
+        resources.Clear();
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
 
-         using var cmd = new NpgsqlCommand("SELECT link, name FROM resources", conn);
-         using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+        using var cmd = new NpgsqlCommand("SELECT link, name FROM resources", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
 
-         while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
-         {
-             String link = reader.GetString(0);
-             String name = reader.GetString(1);
-             Resource resourceToAdd = new(link, name);
-             resources.Add(resourceToAdd);
-             Console.WriteLine(resourceToAdd);
-         }
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String link = reader.GetString(0);
+            String name = reader.GetString(1);
+            Resource resourceToAdd = new(link, name);
+            resources.Add(resourceToAdd);
+            Console.WriteLine(resourceToAdd);
+        }
 
-         return resources;
-     }
-     
+        return resources;
+    }
+
     // Finds the airport with the given id, null if not found
     public Airport SelectAirport(String id)
     {
@@ -166,7 +193,8 @@ public class Database : IDatabase
         {
             SelectAllAirports(); // go and fetch the airports again, otherwise Airports will be out of sync with the database
             return AirportDeletionError.NoError;
-        } else
+        }
+        else
         {
             return AirportDeletionError.AirportNotFound;
         }

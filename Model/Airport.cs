@@ -10,11 +10,15 @@ public class Airport : INotifyPropertyChanged
     String city;
     DateTime dateVisited;
     int rating;
+    Double latitude;
+    Double longitude;
 
     public String Id
     {
         get { return id; }
-        set { id = value;
+        set
+        {
+            id = value;
             OnPropertyChanged(nameof(Id));
         }
     }
@@ -22,7 +26,9 @@ public class Airport : INotifyPropertyChanged
     public String City
     {
         get { return city; }
-        set { city = value;
+        set
+        {
+            city = value;
             OnPropertyChanged(nameof(City));
         }
     }
@@ -30,7 +36,9 @@ public class Airport : INotifyPropertyChanged
     public DateTime DateVisited
     {
         get { return dateVisited; }
-        set { dateVisited = value;
+        set
+        {
+            dateVisited = value;
             OnPropertyChanged(nameof(DateVisited));
         }
     }
@@ -38,9 +46,22 @@ public class Airport : INotifyPropertyChanged
     public int Rating
     {
         get { return rating; }
-        set { rating = value;
+        set
+        {
+            rating = value;
             OnPropertyChanged(nameof(Rating));
         }
+    }
+
+    public Double Latitude
+    {
+        get { return latitude; }
+        set { latitude = value; }
+    }
+    public Double Longitude
+    {
+        get { return longitude; }
+        set { longitude = value; }
     }
 
     public Airport(String id, String city, DateTime dateVisited, int rating)
@@ -51,6 +72,16 @@ public class Airport : INotifyPropertyChanged
         Rating = rating;
     }
 
+    public Airport(String id, String city, DateTime dateVisited, int rating, Double latitude, Double longitude)
+     {
+         Id = id;
+         City = city;
+         DateVisited = dateVisited;
+         Rating = rating;
+         Latitude = latitude;
+         Longitude = longitude;
+     }
+     
     public Airport() { }
 
     public event PropertyChangedEventHandler PropertyChanged;

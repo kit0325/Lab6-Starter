@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Lab6_Starter.Model"
              x:Class="Lab6_Starter.NearbyAirports"
-             Title="NearbyAirports">
+             x:DataType="model:BusinessLogic"
+             Title="Nearby Airports">
        <VerticalStackLayout
        Padding="25, 20"
        Spacing="20"
    >
-        <Grid ColumnDefinitions=".25*, .5*" ColumnSpacing="-260">
+        <Grid ColumnDefinitions=".25*, .6*" ColumnSpacing="-260">
             <Label
                Grid.Column="0"
                Text="Airport:"
@@ -22,55 +24,41 @@
                WidthRequest="135"
            />
         </Grid>
-        <Grid ColumnDefinitions="*, *" ColumnSpacing="-175">
+        <Grid ColumnDefinitions="*, .4*" ColumnSpacing="-260">
             <Label
-               Grid.Column="0"
-               Text="Nearby"
-               FontSize="20"
-               VerticalOptions="Center"
-           />
-            <Label
-               Grid.Column="1"
-               Text="(close → far)"
-               FontSize="20"
-           />
+                Grid.Column="0"
+                Text="Max Distance (in NM):"
+                FontSize="20"
+                VerticalOptions="Center"
+            />
+            <Entry
+                Grid.Column="1"
+                FontSize="20"
+                x:Name="distanceENT"
+                Text="50"
+                WidthRequest="135"
+            />
         </Grid>
+        <Button 
+            Text="Refresh"
+            Clicked="OnRefreshBtnClicked"
+            HorizontalOptions="Fill"
+            />
 
-        <Frame BorderColor="Black" Padding="15">
-            <Grid ColumnDefinitions=".5*, *, *, .25*">
-                <Label Text="OSH" Grid.Column="0" ></Label>
-                <Label Text="Oshkosh" Grid.Column="1"></Label>
-                <Label Text="0.0 Miles" Grid.Column="2"></Label>
-                <Label Text="✓" FontSize="15" Grid.Column="3"></Label>
-            </Grid>
-        </Frame>
-
-        <Frame BorderColor="Black" Padding="15">
-            <Grid ColumnDefinitions=".5*, *, *, .25*">
-                <Label Text="ATW" Grid.Column="0"></Label>
-                <Label Text="Appleton" Grid.Column="1"></Label>
-                <Label Text="30.0 Miles" Grid.Column="2"></Label>
-                <Label Text="✓" FontSize="15"  Grid.Column="3"></Label>
-            </Grid>
-        </Frame>
-
-        <Frame BorderColor="Black" Padding="15">
-            <Grid ColumnDefinitions=".5*, *, *, .25*">
-                <Label Text="MKE" Grid.Column="0"></Label>
-                <Label Text="Milwaukee" Grid.Column="1"></Label>
-                <Label Text="100.0 Miles" Grid.Column="2"></Label>
-                <Label Text="X" FontSize="15" Grid.Column="3"></Label>
-            </Grid>
-        </Frame>
-
-        <Frame BorderColor="Black" Padding="15">
-            <Grid ColumnDefinitions=".5*, *, *, .25*">
-                <Label Text="AUW" Grid.Column="0"></Label>
-                <Label Text="Wausau" Grid.Column="1"></Label>
-                <Label Text="100.0 Miles" Grid.Column="2"></Label>
-                <Label Text="✓" FontSize="15" Grid.Column="3"></Label>
-            </Grid>
-        </Frame>
-
+        <CollectionView x:Name="CV" ItemsSource="{Binding AirportsNearby}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:NearbyAirport">
+                    <Frame BorderColor="Black" Padding="15">
+                        <Grid ColumnDefinitions=".5*, *, *, .25*">
+                            <Label Text="{Binding Id}" Grid.Column="0"></Label>
+                            <Label Text="{Binding City}" Grid.Column="1"></Label>
+                            <Label Text="{Binding Distance}" Grid.Column="2"></Label>
+                            <Label Text="{Binding Visited}" FontSize="15" Grid.Column="3"></Label>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
