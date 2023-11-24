@@ -7,8 +7,8 @@
              Title="Weather"
              BackgroundColor="Beige">
 
-    
-            <VerticalStackLayout
+    <ScrollView>
+        <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Start">
@@ -18,9 +18,9 @@
         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
             <StackLayout Grid.Row="0" Margin="20, 20, 20, 0" Orientation="Horizontal">
                 <Frame Padding="10" CornerRadius="35" HasShadow="True" BorderColor="LightBlue">
-                    <Label Text="Appleton" FontSize="Default" HorizontalOptions="Start" ></Label>
+                    <Entry x:Name="entry" Placeholder="Enter airport id"/>
                 </Frame>
-                <ImageButton Source="magnifyingglasssolid.svg" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand"></ImageButton>
+                <ImageButton Source="magnifyingglasssolid.svg" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand" Clicked="OnSearch_Clicked"></ImageButton>
             </StackLayout>
 
             <Frame Grid.Row="1" Padding="-5" Margin="0,15,0,0" BorderColor="LightBlue" CornerRadius="0">
@@ -92,7 +92,7 @@
                 </Frame>
 
                 <Frame Grid.Row="1" Padding="10" CornerRadius="0" HasShadow="True" BorderColor="LightBlue">
-                    <Label Text="KATW 211605Z 2116/2212 07003KT P6SM -RA SCT022 OVC050 TEMPO 2116/2118 BKN004"/>
+                        <Label x:Name="MetarLabel" Text="Please enter an ICAO airport ID in the search bar and click the magnifying glass."/>
                 </Frame>
             </Grid>
 
@@ -102,14 +102,11 @@
                 </Frame>
 
                 <Frame Grid.Row="1" Padding="10" CornerRadius="0" HasShadow="True" BorderColor="LightBlue">
-                    <Label Grid.Row="1" Text="FM211800 01009KT 5SM -RA BR OVC016
-                                              FM212200 35010G18KT P6SM -SHRA BKN020
-                                              FM220100 35008KT P6SM SCT030
-                                              FM220600 34007KT P6SM SCT035="/>
+                        <Label x:Name="TafLabel" Grid.Row="1" Text="Please enter an ICAO airport ID in the search bar and click the magnifying glass."/>
                 </Frame>
             </Grid>
         </Grid>
     </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
-
