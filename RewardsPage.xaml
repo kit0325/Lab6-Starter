@@ -2,19 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lab6_Starter.RewardsPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Rewards">
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout
         Padding="25, 20"
         Spacing="20"
     >
             <Grid ColumnDefinitions=".60*, 1.9*" RowDefinitions="*, *, *, *, *, *">
             
-
             <Label Grid.Row="0" Grid.Column="0" Text="Name:" VerticalOptions="Center" FontSize="18" Margin="10,0,0,0" />
-            <Entry Grid.Row="0" Grid.Column="1" Placeholder="Enter your name" Grid.ColumnSpan="2" Margin="10,0,10,10" x:Name="nameENT"/>
+            <Entry Grid.Row="0" Grid.Column="1" Placeholder="Enter your name" Grid.ColumnSpan="2" Margin="10,0,10,10" x:Name="nameENT">
+                <Entry.Behaviors>
+                    <toolkit:EmailValidationBehavior 
+                        MinimumLength="1"
+                        Flags="ValidateOnValueChanged,ValidateOnAttaching"/>
+                </Entry.Behaviors>
+            </Entry>
 
             <Label Grid.Row="1" Grid.Column="0" Text="Email:" VerticalOptions="Center" FontSize="18" Margin="10,0,0,0" />
-            <Entry Grid.Row="1" Grid.Column="1" Placeholder="Enter your email" Grid.ColumnSpan="2" Margin="10,0,10,10" x:Name="emailENT"/>
+            <Entry Grid.Row="1" Grid.Column="1" Placeholder="Enter your email" Grid.ColumnSpan="2" Margin="10,0,10,10" x:Name="emailENT">
+                <Entry.Behaviors>
+                    <toolkit:EmailValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged,ValidateOnAttaching" />
+                </Entry.Behaviors>
+            </Entry>
 
             <Label Grid.Row="2" Grid.Column="0" Text="Address:" VerticalOptions="Center" FontSize="18" Margin="10,0,0,0" />
             <Entry Grid.Row="2" Grid.Column="1" Placeholder="Enter your Address" Grid.ColumnSpan="2" Margin="10,0,10,10" x:Name="addressENT"/>
