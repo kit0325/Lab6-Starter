@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
+using Lab6_Starter;
 
 namespace Lab6_Solution;
 
@@ -22,8 +23,19 @@ public partial class AddNewAirportPopup : Popup
 	/// <param name="args">Arguments</param>
 	public void AddAirportButtonClicked(System.Object sender, System.EventArgs args)
 	{
-		/* Code here TO BE IMPLEMENTED */
-	}
+		// Group 1's contributions
+		DateTime dateVisited;
+         int rating;
+
+         if (DateTime.TryParse(DateVisitedENT.Text, out dateVisited) && int.TryParse(RatingENT.Text, out rating))
+         {
+             // Both parsing operations were successful.
+             MauiProgram.BusinessLogic.AddAirport(IdENT.Text, CityENT.Text, dateVisited, rating);
+         }
+
+ 		Close();
+     }
+	
 
 	/// <summary>
 	/// Closes the "Add New Airport" popup.

@@ -22,7 +22,7 @@
 
             <!-- This line says that the ItemsSource of the CollectionView is the Airports property of the Domain object (an ObservableCollection) -->
             <!--<CollectionView x:Name="CV" ItemsSource="{Binding Airports}" SelectionMode="Single">-->
-            <CollectionView x:Name="CV" SelectionMode="Single">
+            <CollectionView x:Name="CV" SelectionMode="Single" ItemsSource="{Binding .}"> 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Airport">
                         <Grid RowDefinitions="*" ColumnDefinitions="*,2*,2*, 2*">
@@ -34,42 +34,13 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.ItemsSource>
-                    <!--<x:Array Type="{x:Type x:String}">
-                    </x:Array>-->
-                    <scg:List x:TypeArguments="model:Airport">
-                        <model:Airport 
-                            Id="OSH"
-                            City="Oshkosh"
-                            DateVisited="2010-11-10T12:30:00.0000000-05:00"
-                            Rating="4"
-                            />
-                        <model:Airport 
-                            Id="ATX"
-                            City="Appleton"
-                            DateVisited="2020-08-23T09:07:38.6875000-05:00"
-                            Rating="5"
-                            />
-                        <model:Airport 
-                            Id="EGV"
-                            City="Eagle River"
-                            DateVisited="2020-10-31T14:40:05.0000000-05:00"
-                            Rating="3"
-                            />
-                        <model:Airport 
-                            Id="PRW"
-                            City="Prentice"
-                            DateVisited="2019-05-08T15:15:30.000000-05:00"
-                            Rating="3"
-                            />
-                        </scg:List>
-                </CollectionView.ItemsSource>
+              
             </CollectionView>
             <Grid RowDefinitions="*" ColumnDefinitions="*,3*,2*,*">
-                <Entry Grid.Column="0" Text="KATW" Placeholder="Id" x:Name="IdENT"/>
-                <Entry Grid.Column="1" Text="Appleton" Placeholder="City" x:Name="CityENT"/>
-                <Entry Grid.Column="2" Text="03/03/2023" Placeholder="Date Visited" x:Name="DateVisitedENT"/>
-                <Entry Grid.Column="3" Text="3" Placeholder="Rating" x:Name="RatingENT"/>
+                <Entry Grid.Column="0" Placeholder="Id" x:Name="IdENT"/>
+                <Entry Grid.Column="1" Placeholder="City" x:Name="CityENT"/>
+                <Entry Grid.Column="2" Placeholder="Date Visited" x:Name="DateVisitedENT"/>
+                <Entry Grid.Column="3" Placeholder="Rating" x:Name="RatingENT"/>
             </Grid>
 
 
@@ -78,4 +49,3 @@
     </ScrollView>
 
 </ContentPage>
-

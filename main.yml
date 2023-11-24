@@ -1,0 +1,40 @@
+name: .NET MAUI CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x' # Specify the required SDK version
+        
+    - name: Restore Dependencies
+      run: dotnet restore MyMauiApp.sln
+      
+    - name: Build the Application
+      run: dotnet build MyMauiApp.sln --configuration Release
+      
+    - name: Run Tests
+      run: dotnet test MyMauiApp.sln --configuration Release --no-build
+      # If you have a specific project to test, you can specify it instead of the solution file.
+      # Example: dotnet test MyMauiApp.Tests/MyMauiApp.Tests.csproj --configuration Release --no-build
+
+    # If you have additional steps for deployment or other actions, they would go here.
+    # - name: Deploy to App Center
+    #   run: <deployment command>
+    #   env:
+    #     APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_TOKEN }}
+
+# Note: Make sure to replace 'MyMauiApp.sln' with the actual solution name of your MAUI application.
+# Additionally, adjust the .NET SDK version to match the version required by your application.
