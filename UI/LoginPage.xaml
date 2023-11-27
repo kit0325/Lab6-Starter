@@ -6,15 +6,21 @@
     <FlexLayout Padding="15" Direction="Column" AlignItems="Stretch" JustifyContent="SpaceAround">
         <Image Source="dotnet_bot.svg" HeightRequest="300" WidthRequest="200" FlexLayout.AlignSelf="Center"/>
         <VerticalStackLayout>
-        <Entry x:Name="usernameEntry"
+        <Entry x:Name="UsernameENT"
             Placeholder="Username"
+            Text="{Binding Username}"
             Keyboard="Default" />
 
-        <Entry x:Name="passwordEntry"
+        <Entry x:Name="PasswordENT"
             Placeholder="Password"
+            Text="{Binding Password}"
             IsPassword="True"
             Keyboard="Default" />
         </VerticalStackLayout>
-        <Button Text="Login" Clicked="OnLoginClicked" />
+        <Button Text="Login" Command="{Binding LoginCommand}"/>
+        <!-- Notice the IsVisible binding, XAML supports "trutihness" (0 is false, > 0 true) -->
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" FlexLayout.AlignSelf="Center"
+       IsVisible="{Binding ErrorMessage.Length}"/>
+
     </FlexLayout>
 </ContentPage>
