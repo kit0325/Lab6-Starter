@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+//TODO: Refactor to account for change in name of table - airports => visited_airports and introduction of user_id
 namespace Lab6_Starter.Model
 {
     public interface IDatabase

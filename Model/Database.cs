@@ -31,7 +31,7 @@ public class Database : IDatabase
         conn.Open();
 
         // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
-        using var cmd = new NpgsqlCommand("SELECT id, city, date_visited, rating FROM airports", conn);
+        using var cmd = new NpgsqlCommand("SELECT id, city, date_visited, rating FROM visited_airports", conn);
         using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
 
         while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
@@ -96,14 +96,14 @@ public class Database : IDatabase
         return resources;
     }
 
-    // Finds the airport with the given id, null if not found
+    // Finds the airport (among those visited) with the given id, null if not found
     public Airport SelectAirport(String id)
     {
         Airport airportToAdd = null;
         var conn = new NpgsqlConnection(connString);
         conn.Open();
 
-        using var cmd = new NpgsqlCommand("SELECT id, city, date_visited, rating FROM airports WHERE id = @id", conn);
+        using var cmd = new NpgsqlCommand("SELECT id, city, date_visited, rating FROM visited_airports WHERE id = @id", conn);
         cmd.Parameters.AddWithValue("id", id);
 
         using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
@@ -177,7 +177,11 @@ public class Database : IDatabase
         return AirportEditError.NoError;
     }
 
-
+/// <summary>
+/// Deletes an airport -- not clear why a user would want to do this but we offer the functionality just in case
+/// </summary>
+/// <param name="airportToDelete">Airport to delete</param>
+/// <returns>AirportDeletionError (or none if succes)</returns>
     public AirportDeletionError DeleteAirport(Airport airportToDelete)
     {
         var conn = new NpgsqlConnection(connString);
@@ -185,7 +189,7 @@ public class Database : IDatabase
 
         using var cmd = new NpgsqlCommand();
         cmd.Connection = conn;
-        cmd.CommandText = "DELETE FROM airports WHERE id = @id";
+        cmd.CommandText = "DELETE FROM visited_airports WHERE id = @id";
         cmd.Parameters.AddWithValue("id", airportToDelete.Id);
         int numDeleted = cmd.ExecuteNonQuery();
 
@@ -200,7 +204,11 @@ public class Database : IDatabase
         }
     }
 
-
+/// <summary>
+/// This looks up a Wisconsin airport (1 out of 142)
+/// </summary>
+/// <param name="id">id to look up, e.g., ATW</param>
+/// <returns>the airport, null if not found</returns>
     public Airport SelectWisconsinAirport(String id)
     {
         Airport airportToAdd = null;

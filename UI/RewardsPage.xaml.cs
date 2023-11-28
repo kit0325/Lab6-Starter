@@ -52,7 +52,7 @@ public partial class RewardsPage : ContentPage
         String status = MauiProgram.BusinessLogic.CalculateStatistics();
         //validate incoming input
         string result = ValidateApplicationInput(name, email, address, city, state, zip, status);
-        if (result == "")
+        if (result != "")
         {
             try
             {

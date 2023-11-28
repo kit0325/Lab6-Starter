@@ -20,6 +20,6 @@ public class UserAuthenticationService
         // Return true if the user is valid, false otherwise
 
         // Stub method ... replace with your own implementation
-        return username == "bsmith" && password == "pass";
+        return username == "bsmith" && password == "FWAPPA_CS341_2023"; // stored in users
     }
 }
