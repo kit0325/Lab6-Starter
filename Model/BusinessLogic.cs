@@ -9,7 +9,9 @@ using Lab6_Starter;
 
 namespace Lab6_Starter.Model;
 
-
+/// <summary>
+/// This class implements the BusinessLogic
+/// </summary>
 public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 {
     const int BRONZE_LEVEL = 42;
