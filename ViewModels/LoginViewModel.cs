@@ -9,23 +9,22 @@ using Lab6_Starter.Services;
 public class LoginViewModel : INotifyPropertyChanged
 {
     private readonly UserAuthenticationService _userAuthenticationService;
-
     public event Action RequestNavigation; // an Action is a delegate that returns void
                                            // it will be used to trigger the event (navigation) in the LoginPage.xaml.cs
-    private string _username;
+    private string _userId;
     private string _password;
     private string _errorMessage;
 
 /// <summary>
 /// These properties will be bound to the LoginPage.xaml. They have to be properties, not fields.
 /// </summary>
-    public string Username
+    public string UserId
     {
-        get { return _username; }
+        get { return _userId; }
         set
         {
-            _username = value;
-            OnPropertyChanged(nameof(Username));
+            _userId = value;
+            OnPropertyChanged(nameof(UserId));
         }
     }
 
@@ -59,6 +58,8 @@ public class LoginViewModel : INotifyPropertyChanged
     {
         _userAuthenticationService = new UserAuthenticationService(); // better: use dependency injection
         LoginCommand = new Command(OnLogin);
+        this.UserId = "bsmith";
+        this.Password = "FWAPPA_CS341_2023";
     }
 
 /// <summary>
@@ -66,20 +67,20 @@ public class LoginViewModel : INotifyPropertyChanged
 /// </summary>
     private void OnLogin()
     {
-        // For some reason, this does not print the values of Username and Password
-        Console.WriteLine($"LoginViewModel.OnLogin() called with {Username} and {Password}");
+        // For some reason, this does not print the values of UserId and Password
+        Console.WriteLine($"LoginViewModel.OnLogin() called with {UserId} and {Password}");
 
-        bool validUser = _userAuthenticationService.ValidateUser(Username, Password);
+        bool validUser = _userAuthenticationService.ValidateUser(UserId, Password);
 
         if (validUser)
         {
             ErrorMessage = String.Empty; // in data binding, this will clear the error message (in case we had an error message showing previously)
-             
+            MauiProgram.BusinessLogic.UserId = UserId;
             RequestNavigation?.Invoke(); // this will trigger the event in the LoginPage.xaml.cs, handling navigation to the MainTabbedPage
         }
         else
         {
-            ErrorMessage = "Login Failed: Invalid username or password";
+            ErrorMessage = "Login Failed: Invalid UserId or password";
         }
     }
 

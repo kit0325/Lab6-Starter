@@ -14,7 +14,7 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 		
 		LoginViewModel viewModel = new LoginViewModel();
-
+		
 		// Here we are adding a listener to the LoginViewModel's RequestNavigation event
 		// so when we invoke RequestNavigation there (after a successful login), it will trigger this code here :-) 
 		viewModel.RequestNavigation += () => Navigation.PushAsync(new MainTabbedPage());

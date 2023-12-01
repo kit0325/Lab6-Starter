@@ -6,9 +6,10 @@ namespace Lab6_Starter.Model
 {
     public interface IDatabase
     {
-        ObservableCollection<Airport> SelectAllAirports();
+
+        ObservableCollection<Airport> SelectAllAirports(String userId);
+        Airport SelectAirport(String id, String userId);
         ObservableCollection<Airport> SelectAllWiAirports();
-        Airport SelectAirport(String id);
         Airport SelectWisconsinAirport(String id);
         AirportAdditionError InsertAirport(Airport airport);
         AirportDeletionError DeleteAirport(Airport airport);

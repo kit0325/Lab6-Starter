@@ -20,9 +20,12 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 
 
     IDatabase db;
-    private readonly int MAX_RATING = 5;
-   
+    private const int MIN_RATING = 1;
+    private const int MAX_RATING = 5;
+    private const int MIN_ID_LENGTH = 3;
+    private const int MAX_ID_LENGTH = 4;
 
+    public String UserId {get;set;} // by introducing this as a property, we don't have to change the UI too much
     public event PropertyChangedEventHandler PropertyChanged;
 
     public ObservableCollection<Airport> Airports
@@ -45,20 +48,26 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 
     public Airport FindAirport(String id)
     {
-        return db.SelectAirport(id);
+        return db.SelectAirport(id, UserId);
     }
-
+/// <summary>
+/// Checks to make sure that all airport fields are legitimate
+/// </summary>
+/// <param name="id">id of airport to ad"></param>
+/// <param name="dateVisited">date visited</param>
+/// <param name="rating">rating, from 1-5</param>
+/// <returns></returns>
     private AirportAdditionError CheckAirportFields(String id, String city, DateTime dateVisited, int rating)
     {
-        if (id.Length < 3 || id.Length > 4)
+        if (id.Length <  MIN_ID_LENGTH || id.Length > MAX_ID_LENGTH)
         {
             return AirportAdditionError.InvalidIdLength;
         }
-        if (city.Length < 3)
+        if (city.Length < MIN_ID_LENGTH)
         {
             return AirportAdditionError.InvalidCityLength;
         }
-        if (rating < 1 || rating > MAX_RATING)
+        if (rating < MIN_RATING || rating > MAX_RATING)
         {
             return AirportAdditionError.InvalidRating;
         }
@@ -67,6 +76,14 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     }
 
 
+/// <summary>
+/// Adds a new airport to the DB. It grabs these fields from the popup, but since it knows the UserId, we add that from elsewhere
+/// </summary>
+/// <param name="id"></param>
+/// <param name="city"></param>
+/// <param name="dateVisited"></param>
+/// <param name="rating"></param>
+/// <returns>An error if the pilot has already visited the airport. You can't stamp it twice</returns>
     public AirportAdditionError AddAirport(String id, String city, DateTime dateVisited, int rating)
     {
 
@@ -76,11 +93,11 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
             return result;
         }
 
-        if (db.SelectAirport(id) != null)
+        if (db.SelectAirport(id, UserId) != null)           // we do not allow duplicate airport visits by one user ... we might regret that
         {
             return AirportAdditionError.DuplicateAirportId;
         }
-        Airport airport = new Airport(id, city, dateVisited, rating);
+        Airport airport = new Airport(id, UserId, city, dateVisited, rating);
         db.InsertAirport(airport);
 
         return AirportAdditionError.NoError;
@@ -89,7 +106,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     public AirportDeletionError DeleteAirport(String id)
     {
 
-        var entry = db.SelectAirport(id);
+        var entry = db.SelectAirport(id, UserId);
 
         if (entry != null)
         {
@@ -120,7 +137,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
             return AirportEditError.InvalidFieldError;
         }
 
-        var airport = db.SelectAirport(id);
+        var airport = db.SelectAirport(id, UserId);
         airport.Id = id;
         airport.City = city;
         airport.DateVisited = dateVisited;
@@ -141,7 +158,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
         FlyWisconsinLevel nextLevel;
         int numAirportsUntilNextLevel;
 
-        int numAirportsVisited = db.SelectAllAirports().Count;
+        int numAirportsVisited = db.SelectAllAirports(UserId).Count;
         if (numAirportsVisited < BRONZE_LEVEL)
         {
             nextLevel = FlyWisconsinLevel.Bronze;
@@ -169,7 +186,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 
     public ObservableCollection<Airport> GetAirports()
     {
-        return db.SelectAllAirports();
+        return db.SelectAllAirports(UserId);
     }
 
     public ObservableCollection<Resource> GetResources()

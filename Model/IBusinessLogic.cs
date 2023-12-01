@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 namespace Lab6_Starter.Model;
 public interface IBusinessLogic
 {
+    public String UserId {get; set;} // all airport operations will use this userId
     AirportAdditionError AddAirport(String id, String city, DateTime dateVisited, int rating);
     AirportDeletionError DeleteAirport(String id);
     AirportEditError EditAirport(String id, String city, DateTime dateVisited, int rating);

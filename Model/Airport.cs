@@ -3,10 +3,15 @@ using System.ComponentModel;
 
 namespace Lab6_Starter.Model;
 
+/// <summary>
+/// Every airport has an id, city, userId, dateVisited, Rating, latitude longitude
+/// Really, this is a VisitedAirport, and might be better off called such
+/// </summary>
 [Serializable()]
 public class Airport : INotifyPropertyChanged
 {
     String id;
+    String userId;
     String city;
     DateTime dateVisited;
     int rating;
@@ -23,6 +28,14 @@ public class Airport : INotifyPropertyChanged
         {
             id = value;
             OnPropertyChanged(nameof(Id));
+        }
+    }
+
+    public String UserId {
+        get { return userId;}
+        set {
+            userId = value;
+            OnPropertyChanged(nameof(UserId));
         }
     }
 
@@ -67,20 +80,17 @@ public class Airport : INotifyPropertyChanged
         set { longitude = value; }
     }
 
-    public Airport(String id, String city, DateTime dateVisited, int rating)
+    public Airport(String id, String userId, String city, DateTime dateVisited, int rating)
     {
         Id = id;
+        UserId = userId;
         City = city;
         DateVisited = dateVisited;
         Rating = rating;
     }
 
-    public Airport(String id, String city, DateTime dateVisited, int rating, Double latitude, Double longitude)
+    public Airport(String id, String userId, String city, DateTime dateVisited, int rating, Double latitude, Double longitude) : this(id,userId,city,dateVisited,rating)
     {
-        Id = id;
-        City = city;
-        DateVisited = dateVisited;
-        Rating = rating;
         Latitude = latitude;
         Longitude = longitude;
     }
@@ -112,7 +122,7 @@ public class Airport : INotifyPropertyChanged
     public override bool Equals(object obj)
     {
         var otherAirport = obj as Airport;
-        return Id == otherAirport.Id;
+        return Id == otherAirport.Id && UserId == otherAirport.UserId;
     }
 
     public override int GetHashCode()

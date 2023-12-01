@@ -26,7 +26,7 @@ public partial class MainPage : ContentPage
 
     void DeleteAirport_Clicked(System.Object sender, System.EventArgs e)
     {
-        Airport currentAirport = CV.SelectedItem as Airport;
+        Airport currentAirport = (sender as Button).BindingContext as Airport; // wow, one line of code to get the current Airport object :-)
         AirportDeletionError result = MauiProgram.BusinessLogic.DeleteAirport(currentAirport.Id);
         if (result != AirportDeletionError.NoError)
         {
