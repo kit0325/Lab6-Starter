@@ -10,7 +10,7 @@
     <TabbedPage.Children>
         <NavigationPage IconImageSource="rectangle_list_48.png" Title="Airports">
             <x:Arguments>
-                <local:MainPage/>
+                <local:AirportsPage/>
             </x:Arguments>
         </NavigationPage>
            <NavigationPage IconImageSource="mapicon.png" Title="Map">
@@ -30,5 +30,3 @@
         </NavigationPage>
     </TabbedPage.Children>
 </TabbedPage>
-
-

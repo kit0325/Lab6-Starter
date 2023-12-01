@@ -58,7 +58,7 @@ public class LoginViewModel : INotifyPropertyChanged
     {
         _userAuthenticationService = new UserAuthenticationService(); // better: use dependency injection
         LoginCommand = new Command(OnLogin);
-        this.UserId = "bsmith";
+        this.UserId = "bsmith";         // prepopulates the database
         this.Password = "FWAPPA_CS341_2023";
     }
 

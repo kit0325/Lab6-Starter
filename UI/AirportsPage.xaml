@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Lab6_Starter.Model"
+             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+             x:DataType="model:BusinessLogic" 
+             xmlns:converters="clr-namespace:Lab6_Starter.Converters"
+             x:Class="Lab6_Starter.AirportsPage"
+             Title="Airports">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddAirport_Clicked"/>
+        <ToolbarItem Text="Edit" Clicked="EditAirport_Clicked"/>
+        <ToolbarItem Text="Stats" Clicked="CalculateStatistics_Clicked"/>
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <converters:NumberToStarsConverter x:Key="NumberToStarsConverter" />
+        </ResourceDictionary>
+
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+       <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="15,0"
+            VerticalOptions="Start">
+
+            <!-- This line says that the ItemsSource of the CollectionView is the Airports property of the Domain object (an ObservableCollection) -->
+            <!--<CollectionView x:Name="CV" ItemsSource="{Binding Airports}" SelectionMode="Single">-->
+            <CollectionView x:Name="CV" SelectionMode="Single" ItemsSource="{Binding .}"> 
+                <CollectionView.Header>
+                    <Grid RowDefinitions="*" ColumnDefinitions="50,3.75*,2.5*, 1.75*, *">
+                        <Label Grid.Column="0" Text="Id" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="City" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="Date Visited" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="3" Text="Rating" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Airport">
+                        <Grid RowDefinitions="*" ColumnDefinitions="50,3.75*,2.5*, 1.75*, *">
+                            <Label Grid.Column="0" Text="{Binding Id}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Column="1" Text="{Binding City}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Column="2" Text="{Binding DateVisited}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Column="3" Text="{Binding Rating,Converter={StaticResource NumberToStarsConverter}}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" />
+                            <Button Grid.Column="4" BackgroundColor="Transparent"  Clicked="DeleteAirport_Clicked"  ImageSource="trash.png" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+              
+            </CollectionView>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,3*,2*,*">
+                <Entry Grid.Column="0" Placeholder="Id" x:Name="IdENT"/>
+                <Entry Grid.Column="1" Placeholder="City" x:Name="CityENT"/>
+                <Entry Grid.Column="2" Placeholder="Date Visited" x:Name="DateVisitedENT"/>
+                <Entry Grid.Column="3" Placeholder="Rating" x:Name="RatingENT"/>
+            </Grid>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+    </ScrollView>
+
+</ContentPage>

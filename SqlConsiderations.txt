@@ -1,0 +1,26 @@
+CREATE TABLE public.users (
+  user_id VARCHAR(25) NOT NULL,
+  hashed_password CHAR(60) NULL,
+  CONSTRAINT users_pkey PRIMARY KEY (user_id ASC)
+)
+
+REATE TABLE public.visited_airports (
+  id VARCHAR(4) NOT NULL,
+  city VARCHAR(25) NULL,
+  date_visited TIMESTAMP NULL,
+  rating INT8 NULL,
+  user_id VARCHAR(25) NULL,
+  CONSTRAINT airports_pkey PRIMARY KEY (id ASC)
+)
+
+CREATE TABLE public.wi_airports (
+  id CHAR(4) NULL,
+  name VARCHAR(50) NULL,
+  lat FLOAT8 NULL,
+  long FLOAT8 NULL,
+  url VARCHAR(100) NULL,
+  rowid INT8 NOT VISIBLE NOT NULL DEFAULT unique_rowid(),
+  CONSTRAINT wi_airports_pkey PRIMARY KEY (rowid ASC)
+)
+
+C

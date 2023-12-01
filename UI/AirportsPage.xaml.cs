@@ -3,9 +3,9 @@ using Lab6_Solution;
 using Lab6_Starter.Model;
 namespace Lab6_Starter;
 
-public partial class MainPage : ContentPage
+public partial class AirportsPage : ContentPage
 {
-    public MainPage()
+    public AirportsPage()
     {
         InitializeComponent();
 
