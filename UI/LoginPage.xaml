@@ -3,9 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Lab6_Starter.LoginPage"
     Title="Welcome to FWAPPA!">
-    <FlexLayout Padding="15" Direction="Column" AlignItems="Stretch" JustifyContent="SpaceAround">
-        <Image Source="dotnet_bot.svg" HeightRequest="300" WidthRequest="200" FlexLayout.AlignSelf="Center"/>
-        <VerticalStackLayout>
+
+    <Grid  RowDefinitions="10*, 4*, 4*, 1*" Padding="25">
+    
+        <Image Grid.Row="0" Source="dotnet_bot" HeightRequest="300" WidthRequest="200"/>
+
+        <VerticalStackLayout Grid.Row="1" >
         <Entry x:Name="UserIdENT"
             Placeholder="UserId"
             Text="{Binding UserId}"
@@ -17,10 +20,12 @@
             IsPassword="True"
             Keyboard="Default" />
         </VerticalStackLayout>
-        <Button Text="Login" Command="{Binding LoginCommand}"/>
-        <!-- Notice the IsVisible binding, XAML supports "trutihness" (0 is false, > 0 true) -->
-        <Label Text="{Binding ErrorMessage}" TextColor="Red" FlexLayout.AlignSelf="Center"
-       IsVisible="{Binding ErrorMessage.Length}"/>
 
-    </FlexLayout>
+
+        <!-- Notice the IsVisible binding, XAML supports "trutihness" (0 is false, > 0 true) -->
+        <Label Grid.Row="2" Text="{Binding ErrorMessage}" TextColor="Red"  IsVisible="{Binding ErrorMessage.Length}"/>
+       <Button Grid.Row="3" Text="Login" Command="{Binding LoginCommand}"/>
+
+
+    </Grid>
 </ContentPage>
