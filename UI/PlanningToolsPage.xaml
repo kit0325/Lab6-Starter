@@ -1,29 +1,35 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:Lab6_Starter.Model"
-             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
-             x:DataType="model:BusinessLogic" 
-             x:Class="Lab6_Starter.PlanningToolsPage"
-             Title="Planning tools">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Lab6_Starter.Model"
+    xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    x:DataType="model:BusinessLogic"
+    x:Class="Lab6_Starter.PlanningToolsPage"
+    Title="Planning tools">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout>
         <HorizontalStackLayout>
-            <!--Routing Strategies Button-->
-			      <Button Text="Routing Strategies" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnRoutingButtonClicked"/>
-            <!--Nearby Airports Button-->
-            <Button Text="Nearby Airports" Scale="1.1" Margin="30" Clicked="OnNearbyAirportsButtonClicked" WidthRequest="140"/>
+            <!--Routing
+            Strategies Button-->
+            <Button Text="Routing Strategies" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnRoutingButtonClicked" />
+            <!--Nearby
+            Airports Button-->
+            <Button Text="Nearby Airports" Scale="1.1" Margin="30" Clicked="OnNearbyAirportsButtonClicked" WidthRequest="140" />
         </HorizontalStackLayout>
 
-        <!--Lower layer of buttons. T-shirt redemption can go into this horizontal stack -->
+        <!--Lower
+        layer of buttons. T-shirt redemption can go into this horizontal stack -->
         <HorizontalStackLayout>
-            <Button Text="WX" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnWeatherButtonClicked"/>
-            <Button Text="Rewards" 
-                    Padding="5,2"
-                    Margin="20,0,0,0"
-                    WidthRequest="150"
-                    HeightRequest="50"
-                    FontSize="Medium"
-                    Clicked="OnRewardsButtonClicked"/>
-            
+            <Button Text="WX" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnWeatherButtonClicked" />
+            <Button Text="Rewards"
+                Padding="5,2"
+                Margin="20,0,0,0"
+                WidthRequest="150"
+                HeightRequest="50"
+                FontSize="Medium"
+                Clicked="OnRewardsButtonClicked" />
+
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage> 

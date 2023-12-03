@@ -1,18 +1,21 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lab6_Starter.ResourcesPage"
-             Title="ResourcesPage"
-             BackgroundColor="White">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Lab6_Starter.ResourcesPage"
+    Title="ResourcesPage"
+    BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout>
-        <Label 
+        <Label
             Text="Resources Page"
-            VerticalOptions="Center" 
+            VerticalOptions="Center"
             HorizontalOptions="Center" />
         <CollectionView x:Name="collectionView"
             Grid.Row="3"
-                      Grid.ColumnSpan="2"
-                      HorizontalOptions="Center">
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center">
             <CollectionView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
 
@@ -21,7 +24,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <VerticalStackLayout Padding="10" Margin="7">
-                        <Label Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="blue"/>
+                        <Label Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="blue" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

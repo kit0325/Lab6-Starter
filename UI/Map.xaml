@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
-             xmlns:local="clr-namespace:Lab6_Starter"
-             x:Class="Lab6_Starter.Map"
-             Title="Map">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+    xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+    xmlns:local="clr-namespace:Lab6_Starter"
+    x:Class="Lab6_Starter.Map"
+    Title="Map">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <maps:Map>
         <x:Arguments>
             <MapSpan>
@@ -24,8 +29,8 @@
 
         <maps:Map.Pins>
             <maps:Pin Label="KATW"
-                      Address="W6390 Challenger Dr, Appleton, WI 54914"
-                      Type="Place">
+                Address="W6390 Challenger Dr, Appleton, WI 54914"
+                Type="Place">
                 <maps:Pin.Location>
                     <sensors:Location>
                         <x:Arguments>
@@ -36,8 +41,8 @@
                 </maps:Pin.Location>
             </maps:Pin>
             <maps:Pin Label="KEAU"
-                      Address="3800 Starr Ave, Eau Claire, WI 54703"
-                      Type="Place">
+                Address="3800 Starr Ave, Eau Claire, WI 54703"
+                Type="Place">
                 <maps:Pin.Location>
                     <sensors:Location>
                         <x:Arguments>
@@ -48,8 +53,8 @@
                 </maps:Pin.Location>
             </maps:Pin>
             <maps:Pin Label="KGRB"
-                      Address="2077 Airport Dr, Green Bay, WI 54313"
-                      Type="Place">
+                Address="2077 Airport Dr, Green Bay, WI 54313"
+                Type="Place">
                 <maps:Pin.Location>
                     <sensors:Location>
                         <x:Arguments>
