@@ -47,7 +47,8 @@ public static class Meteorologist
         }
         catch (JsonException ex)
         {
-            return $"Error parsing JSON: {ex.Message}";
+            throw ex;
+            //return $"Error parsing JSON: {ex.Message}";
         }
     }
 
@@ -87,7 +88,8 @@ public static class Meteorologist
         }
         catch (JsonException ex)
         {
-            return $"Error parsing JSON: {ex.Message}";
+            throw ex;
+            //return $"Error parsing JSON: {ex.Message}";
         }
     }
 }
