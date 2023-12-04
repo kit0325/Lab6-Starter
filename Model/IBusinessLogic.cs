@@ -9,7 +9,6 @@ public interface IBusinessLogic
     AirportDeletionError DeleteAirport(String id);
     AirportEditError EditAirport(String id, String city, DateTime dateVisited, int rating);
     Airport FindAirport(String id);
-    Airport FindWIAirport(String id); 
     String CalculateStatistics();
     Double ToRadians(Double x);
     Double CalculateDistance(Tuple<Double, Double> latLong1, Tuple<Double, Double> latLong2);

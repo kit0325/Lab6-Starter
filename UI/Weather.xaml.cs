@@ -28,59 +28,54 @@ public partial class Weather : ContentPage
             //Check if it is a valid Wisconsin ICAO airport (First character must be a 'K')
             if (entry.Text.ToUpper().IndexOf("K") == 0)
             {
-                //Check if it is a valid Wisconsin airport in database. 
-                /**if (MauiProgram.BusinessLogic.FindWIAirport(entry.Text.Substring(1)) != null)
-                {*/
-                    try
-                    {
-                        String metar = Meteorologist.GetMetar(entry.Text);
-                        if (metar == "Unexpected JSON structure")
-                        {
-                            MetarLabel.Text = "";
-                            DisplayAlert("Error: Invalid METAR", "Error while reading METAR data", "OK");
-                        }
-                        else
-                        {
-                            MetarLabel.Text = metar;
-                        }
-                    } catch (Exception ex)
+                try
+                {
+                    String metar = Meteorologist.GetMetar(entry.Text);
+                    if (metar == "Unexpected JSON structure")
                     {
                         MetarLabel.Text = "";
-                        DisplayAlert("Error: Invalid METAR", ex.Message, "OK");
+                        DisplayAlert("Error: Invalid METAR", "Error while reading METAR data", "OK");
                     }
-                    try
+                    else
                     {
-                        String taf = Meteorologist.GetTaf(entry.Text);
-                        if (taf == "Unexpected JSON structure")
-                        {
-                            TafLabel.Text = "";
-                            DisplayAlert("Error: Invalid TAF", "Error while reading TAF data", "OK");
-                        }
-                        else if( taf == "0")
-                        {
-                            TafLabel.Text = "No Taf available for this airport";
-                        }
-                        else
-                        {
-                            TafLabel.Text = taf;
-                        }
-                    } catch (Exception ex)
+                        MetarLabel.Text = metar;
+                    }
+                } catch (Exception ex)
+                {
+                    MetarLabel.Text = "";
+                    DisplayAlert("Error: Invalid METAR", ex.Message, "OK");
+                }
+                try
+                {
+                    String taf = Meteorologist.GetTaf(entry.Text);
+                    if (taf == "Unexpected JSON structure")
                     {
                         TafLabel.Text = "";
-                        DisplayAlert("Error: Invalid TAF", ex.Message, "OK"); 
+                        DisplayAlert("Error: Invalid TAF", "Error while reading TAF data", "OK");
                     }
-                } else
+                    else if( taf == "0")
+                    {
+                        TafLabel.Text = "No TAF available for this airport";
+                    }
+                    else
+                    {
+                        TafLabel.Text = taf;
+                    }
+                } catch (Exception ex)
                 {
-                    DisplayAlert("Error: Invalid Wisconsin airport", "Not a Wisconsin airport", "OK"); 
+                    TafLabel.Text = "";
+                    DisplayAlert("Error: Invalid TAF", ex.Message, "OK"); 
                 }
-            } else
+            } 
+            else
             {
-                DisplayAlert("Error: Invalid Wisconsin ICAO airport", "Not an airport starting with K character", "OK"); 
+                DisplayAlert("Error: Invalid Wisconsin airport", "Not a Wisconsin airport", "OK"); 
             }
-       /** } else
+        } 
+        else
         {
-            DisplayAlert("Error: Invalid ICAO airport", "Not a length of 4 characters", "OK");
-        }*/
+            DisplayAlert("Error: Invalid Wisconsin ICAO airport", "Not an airport starting with K character", "OK"); 
+        }
     }
 
 }

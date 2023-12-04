@@ -50,15 +50,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     {
         return db.SelectAirport(id, UserId);
     }
-    /// <summary>
-    /// Checks to make sure its a valid Wisconsin airport
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Airport FindWIAirport(String id)
-    {
-        return db.SelectWisconsinAirport(id);
-    }
+    
 /// <summary>
 /// Checks to make sure that all airport fields are legitimate
 /// </summary>
