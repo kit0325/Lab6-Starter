@@ -83,8 +83,15 @@ public static class Meteorologist
                     return firstDataElement.GetString();
                 }
             }
-
-            return "Unexpected JSON structure";
+            using (JsonDocument document = JsonDocument.Parse(jsonResponse))
+            {
+                JsonElement root = document.RootElement;
+                if (root.TryGetProperty("results", out JsonElement dataElement))
+                {
+                    return dataElement.ToString();
+                }
+            }
+                return "Unexpected JSON structure";
         }
         catch (JsonException ex)
         {

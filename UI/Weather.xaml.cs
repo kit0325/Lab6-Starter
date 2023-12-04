@@ -56,6 +56,10 @@ public partial class Weather : ContentPage
                             TafLabel.Text = "";
                             DisplayAlert("Error: Invalid TAF", "Error while reading TAF data", "OK");
                         }
+                        else if( taf == "0")
+                        {
+                            TafLabel.Text = "No Taf available for this airport";
+                        }
                         else
                         {
                             TafLabel.Text = taf;
