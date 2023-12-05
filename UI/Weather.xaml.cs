@@ -69,12 +69,12 @@ public partial class Weather : ContentPage
             } 
             else
             {
-                DisplayAlert("Error: Invalid Wisconsin airport", "Not a Wisconsin airport", "OK"); 
+                DisplayAlert("Error: Invalid Wisconsin ICAO airport", "Not an airport starting with K character", "OK"); 
             }
         } 
         else
         {
-            DisplayAlert("Error: Invalid Wisconsin ICAO airport", "Not an airport starting with K character", "OK"); 
+            DisplayAlert("Error: Invalid ICAO airport", "Not a length of 4 characters", "OK"); 
         }
     }
 
