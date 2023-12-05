@@ -25,7 +25,8 @@ public partial class Weather : ContentPage
 
     public void OnSearch_Clicked(object sender, EventArgs e)
     {
-        if (!ids.Contains(entry.Text.ToUpper()))
+        string s = entry.Text.ToUpper().Substring(1)+" ";
+        if (!ids.Contains(s))
         {
             DisplayAlert("Error", "Airport id does not exist", "Ok");
         }
