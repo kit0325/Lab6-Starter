@@ -48,6 +48,7 @@ public partial class AddNewAirportPopup : Popup
 	/// <param name="args">Arguments</param>
 	public void ClosePopupButtonClicked(System.Object sender, System.EventArgs args)
 	{
+
 		Close();
 	}
 }

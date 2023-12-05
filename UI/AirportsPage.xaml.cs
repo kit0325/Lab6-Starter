@@ -19,10 +19,11 @@ public partial class AirportsPage : ContentPage
 
     async void AddAirport_Clicked(System.Object sender, System.EventArgs e)
     {
-        var popup = new AddNewAirportPopup();
-
-        var result = await this.ShowPopupAsync(popup);
-        await DisplayAlert("Result", result.ToString(), "OK");
+        var result = await this.ShowPopupAsync(new AddNewAirportPopup());
+        if (result != null)
+        {
+            await DisplayAlert("Result", result.ToString(), "OK");
+        }
     }
 
     void DeleteAirport_Clicked(System.Object sender, System.EventArgs e)
