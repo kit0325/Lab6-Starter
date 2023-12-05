@@ -52,9 +52,9 @@
         </Grid>
 
         <Grid RowDefinitions="*, *" ColumnDefinitions="*, *, *" HorizontalOptions="Center" ColumnSpacing="50" >
-            <RadioButton Grid.Row="0" Grid.Column="0" IsEnabled="False" IsChecked="True" GroupName="0"/>
-            <RadioButton Grid.Row="0" Grid.Column="1" IsEnabled="False" IsChecked="True" GroupName="1"/>
-            <RadioButton Grid.Row="0" Grid.Column="2" IsEnabled="False" IsChecked="False" GroupName="2"/>
+            <RadioButton x:Name ="BronzeRadio" Grid.Row="0" Grid.Column="0" IsEnabled="False" IsChecked="True" GroupName="0"/>
+            <RadioButton x:Name="SilverRadio" Grid.Row="0" Grid.Column="1" IsEnabled="False" IsChecked="True" GroupName="1"/>
+            <RadioButton x:Name="GoldRadio" Grid.Row="0" Grid.Column="2" IsEnabled="False" IsChecked="False" GroupName="2"/>
 
             <Label Grid.Row="1" Grid.Column="0" Text="Bronze"/>
             <Label Grid.Row="1" Grid.Column="1" Text="Silver"/>

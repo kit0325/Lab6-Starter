@@ -36,9 +36,29 @@ public partial class RewardsPage : ContentPage
 
         Content = entry;
         InitializeComponent();
-
+        AssignRadioButtons();
     }
 
+    private void AssignRadioButtons()
+    {
+        String answer = MauiProgram.BusinessLogic.CalculateStatistics();
+
+        if (answer.Contains("Silver"))
+        {
+            BronzeRadio.IsEnabled = true;
+        }
+        else if (answer.Contains("Gold"))
+        {
+            BronzeRadio.IsEnabled = true;
+            SilverRadio.IsEnabled = true;
+        }
+        else if (answer.Contains("0"))
+        {
+            BronzeRadio.IsEnabled = true;
+            SilverRadio.IsEnabled = true;
+            GoldRadio.IsEnabled = true;
+        }
+    }
     public async Task SubmitApplication()
     {
         String name = nameENT.Text;
@@ -49,7 +69,19 @@ public partial class RewardsPage : ContentPage
         String zip = zipENT.Text;
 
         //Should only return the status and nothing else
-        String status = MauiProgram.BusinessLogic.CalculateStatistics();
+        string status = "";
+        if (GoldRadio.IsEnabled)
+        {
+            status = "Gold";
+        }
+        else if (SilverRadio.IsEnabled)
+        {
+            status = "Silver";
+        }
+        else if (BronzeRadio.IsEnabled)
+        {
+            status = "Bronze";
+        }
         //validate incoming input
         string result = ValidateApplicationInput(name, email, address, city, state, zip, status);
         if (result != "")
