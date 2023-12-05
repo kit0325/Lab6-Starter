@@ -40,7 +40,7 @@
             />
         </Grid>
         <Button 
-            Text="Refresh"
+            Text="Get Nearby Airports"
             Clicked="OnRefreshBtnClicked"
             HorizontalOptions="Fill"
             />
