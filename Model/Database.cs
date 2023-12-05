@@ -280,7 +280,7 @@ public partial class Database : IDatabase
     static String FetchPassword()
     {
         IConfiguration config = new ConfigurationBuilder().AddUserSecrets<Database>().Build();
-        return config["CockroachDBPassword"] ?? ""; // if it can't find the password, returns ... the password (this works in VS, not VSC) 
+        return config["CockroachDBPassword"] ?? "xYvR09EUtNehzMnSpJlojA"; // if it can't find the password, returns ... the password (this works in VS, not VSC) 
     }
 
 

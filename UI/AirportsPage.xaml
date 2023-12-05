@@ -9,11 +9,12 @@
              Title="Airports">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddAirport_Clicked"/>
-        <ToolbarItem Text="Edit" Clicked="EditAirport_Clicked"/>
-        <ToolbarItem Text="Stats" Clicked="CalculateStatistics_Clicked"/>
-
+        <ToolbarItem IconImageSource="plus.png"  Text="Add" Clicked="AddAirport_Clicked"/>
+        <ToolbarItem IconImageSource="pencil.png" Text="Edit" Clicked="EditAirport_Clicked"/>
+        <!--ToolbarItem Text="Stats" Clicked="CalculateStatistics_Clicked"/-->
+        <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Resources>
 
         <ResourceDictionary>

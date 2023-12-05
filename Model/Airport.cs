@@ -127,6 +127,6 @@ public class Airport : INotifyPropertyChanged
 
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        return id.GetHashCode();
     }
 }

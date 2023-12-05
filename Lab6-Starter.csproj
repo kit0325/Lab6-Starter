@@ -34,6 +34,9 @@
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\magnifyingglasssolid.svg" />
+	</ItemGroup>
+	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 

@@ -23,7 +23,7 @@
                 <local:PlanningToolsPage/>
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage IconImageSource="magnifyingglasssolid.svg" Title="Resources">
+        <NavigationPage  IconImageSource="search.png" Title="Resources">
             <x:Arguments>
                 <local:ResourcesPage/>
             </x:Arguments>

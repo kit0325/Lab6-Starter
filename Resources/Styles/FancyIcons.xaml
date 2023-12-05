@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml/presentation"
+                    xmlns:local="clr-namespace:Lab6_Starter">
+
+    <Style x:Key="iOSToolbarItemStyle" TargetType="ToolbarItem">
+        <Setter Property="ForegroundColor" Value="White"/>
+    </Style>
+
+    <Style x:Key="AndroidToolbarItemStyle" TargetType="ToolbarItem">
+        <Setter Property="ForegroundColor" Value="Black"/>
+    </Style>
+</ResourceDictionary>
