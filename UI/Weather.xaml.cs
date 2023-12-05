@@ -6,6 +6,8 @@ namespace Lab6_Starter;
 
 public partial class Weather : ContentPage
 {
+    const int CODE_LENGTH = 4;
+    const String CODE_PREFIX = "K";
     public Weather()
     {
         InitializeComponent();
@@ -23,10 +25,10 @@ public partial class Weather : ContentPage
     {
         _ = entry.HideKeyboardAsync(CancellationToken.None); //close the keyboard after searching
         //Check length of Wisconsin ICAO airport is correct length of 4 characters.
-        if (entry.Text.Length == 4)
+        if (entry.Text.Length == CODE_LENGTH)
         {
             //Check if it is a valid Wisconsin ICAO airport (First character must be a 'K')
-            if (entry.Text.ToUpper().IndexOf("K") == 0)
+            if (entry.Text.ToUpper().IndexOf(CODE_PREFIX) == 0)
             {
                 try
                 {
