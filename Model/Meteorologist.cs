@@ -25,6 +25,11 @@ public static class Meteorologist
 
         request.AddHeader("X-API-Key", keyAPI);
         RestResponse response = client.Execute(request);
+        //checks response validity 
+        if(response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
+        {
+            return "Failed to receive a response from www.checkwxapi.com. Try again later.";
+        }
         string jsonResponse = response.Content;
         try
         {
@@ -42,7 +47,14 @@ public static class Meteorologist
                     return firstDataElement.GetString();
                 }
             }
-
+            using (JsonDocument document = JsonDocument.Parse(jsonResponse))
+            {
+                JsonElement root = document.RootElement;
+                if (root.TryGetProperty("results", out JsonElement dataElement))
+                {
+                    return dataElement.ToString();
+                }
+            }
             return "Unexpected JSON structure";
         }
         catch (JsonException ex)

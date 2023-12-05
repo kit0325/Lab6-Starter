@@ -10,6 +10,7 @@ namespace Lab6_Starter.Model
         ObservableCollection<Airport> SelectAllAirports(String userId);
         Airport SelectAirport(String id, String userId);
         ObservableCollection<Airport> SelectAllWiAirports();
+        List<string> SelectAllWiAirportsId();
         Airport SelectWisconsinAirport(String id);
         AirportAdditionError InsertAirport(Airport airport);
         AirportDeletionError DeleteAirport(Airport airport);

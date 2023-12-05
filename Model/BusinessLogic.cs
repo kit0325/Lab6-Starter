@@ -194,6 +194,9 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     {
         return db.SelectAllResources();
     }
-
+    public List<string> SelectAllWiAirportsId()
+    {
+        return db.SelectAllWiAirportsId();
+    }
 }
 
