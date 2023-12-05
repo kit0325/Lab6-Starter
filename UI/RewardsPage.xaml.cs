@@ -45,18 +45,18 @@ public partial class RewardsPage : ContentPage
 
         if (answer.Contains("Silver"))
         {
-            BronzeRadio.IsEnabled = true;
+            BronzeRadio.IsChecked = true;
         }
         else if (answer.Contains("Gold"))
         {
-            BronzeRadio.IsEnabled = true;
-            SilverRadio.IsEnabled = true;
+            BronzeRadio.IsChecked = true;
+            SilverRadio.IsChecked = true;
         }
         else if (answer.Contains("0"))
         {
-            BronzeRadio.IsEnabled = true;
-            SilverRadio.IsEnabled = true;
-            GoldRadio.IsEnabled = true;
+            BronzeRadio.IsChecked = true;
+            SilverRadio.IsChecked = true;
+            GoldRadio.IsChecked = true;
         }
     }
     public async Task SubmitApplication()
@@ -70,51 +70,57 @@ public partial class RewardsPage : ContentPage
 
         //Should only return the status and nothing else
         string status = "";
-        if (GoldRadio.IsEnabled)
+        if (GoldRadio.IsChecked)
         {
             status = "Gold";
         }
-        else if (SilverRadio.IsEnabled)
+        else if (SilverRadio.IsChecked)
         {
             status = "Silver";
         }
-        else if (BronzeRadio.IsEnabled)
+        else if (BronzeRadio.IsChecked)
         {
             status = "Bronze";
         }
-        //validate incoming input
-        string result = ValidateApplicationInput(name, email, address, city, state, zip, status);
-        if (result != "")
+        if (status == "")
         {
-            try
+            //validate incoming input
+            string result = ValidateApplicationInput(name, email, address, city, state, zip, status);
+            if (result != "")
             {
-                var message = new EmailMessage
+                try
                 {
-                    //Enter a email here
-                    To = new List<string> { "mprogers@mac.com" },
-                    Subject = name + " has reached " + status + " status.",
-                    Body = name + " has reached " + status + " status and is requesting their reward. " +
-                           "\nEmail: " + email +
-                           "\n" + address +
-                           ",\n" + city + ", " + state + zip
-                };
-                await Email.ComposeAsync(message);
-            }
-            catch (FeatureNotSupportedException e)
-            {
-                Console.WriteLine($"Feature not supported: {e.Message}");
-            }
-            catch (Exception e)
-            {
+                    var message = new EmailMessage
+                    {
+                        //Enter a email here
+                        To = new List<string> { "mprogers@mac.com" },
+                        Subject = name + " has reached " + status + " status.",
+                        Body = name + " has reached " + status + " status and is requesting their reward. " +
+                               "\nEmail: " + email +
+                               "\n" + address +
+                               ",\n" + city + ", " + state + zip
+                    };
+                    await Email.ComposeAsync(message);
+                }
+                catch (FeatureNotSupportedException e)
+                {
+                    Console.WriteLine($"Feature not supported: {e.Message}");
+                }
+                catch (Exception e)
+                {
                     Console.WriteLine($"Error: {e.Message}");
+                }
             }
+            else
+            {
+                await DisplayAlert("Alert", result, "Okay");
+            }
+
         }
         else
         {
-            await DisplayAlert("Alert", result, "Okay");
+            await DisplayAlert("Alert", "At Zero Level of Status", "Okay");
         }
-
-        
     }
 
     public async void OnSubmitButtonClicked(object sender, EventArgs e)
