@@ -45,18 +45,28 @@ public partial class RewardsPage : ContentPage
 
         if (answer.Contains("Silver"))
         {
+            NoneRadio.IsChecked = false;
             BronzeRadio.IsChecked = true;
+            SilverRadio.IsChecked = false;
+            GoldRadio.IsChecked = false;
         }
         else if (answer.Contains("Gold"))
         {
-            BronzeRadio.IsChecked = true;
+            NoneRadio.IsChecked = false;
+            BronzeRadio.IsChecked = false;
             SilverRadio.IsChecked = true;
+            GoldRadio.IsChecked = false;
         }
-        else if (answer.Contains("0"))
+        else if (answer.Contains("None"))
         {
-            BronzeRadio.IsChecked = true;
-            SilverRadio.IsChecked = true;
+            NoneRadio.IsChecked = false;
+            BronzeRadio.IsChecked = false;
+            SilverRadio.IsChecked = false;
             GoldRadio.IsChecked = true;
+        }
+        else
+        {
+            NoneRadio.IsChecked = true;
         }
     }
     public async Task SubmitApplication()
@@ -69,7 +79,7 @@ public partial class RewardsPage : ContentPage
         String zip = zipENT.Text;
 
         //Should only return the status and nothing else
-        string status = "";
+        string status = "None";
         if (GoldRadio.IsChecked)
         {
             status = "Gold";
@@ -82,7 +92,7 @@ public partial class RewardsPage : ContentPage
         {
             status = "Bronze";
         }
-        if (status == "")
+        if (status != "None")
         {
             //validate incoming input
             string result = ValidateApplicationInput(name, email, address, city, state, zip, status);
@@ -119,7 +129,7 @@ public partial class RewardsPage : ContentPage
         }
         else
         {
-            await DisplayAlert("Alert", "At Zero Level of Status", "Okay");
+            await DisplayAlert("Alert", "At status None. Can't send the email until at least at Bronze status.", "Okay");
         }
     }
 
