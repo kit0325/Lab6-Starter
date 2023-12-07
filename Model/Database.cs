@@ -97,7 +97,7 @@ public partial class Database : IDatabase
     /// <summary>
     /// Get only the IDs of the Wisconsin airports from the DB; mostly for error checking.
     /// </summary>
-    /// <returns> a list object containing all ICAO-format Wisconsin airport identifiers </returns>
+    /// <returns> a list object containing all IATA-format Wisconsin airport identifiers </returns>
     public List<string> SelectAllWiAirportIds()
     {
         wiAirports.Clear();
