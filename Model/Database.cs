@@ -94,19 +94,22 @@ public partial class Database : IDatabase
         return wiAirports;
     }
 
-    public List<string> SelectAllWiAirportsId()
+    /// <summary>
+    /// Get only the IDs of the Wisconsin airports from the DB; mostly for error checking.
+    /// </summary>
+    /// <returns> a list object containing all ICAO-format Wisconsin airport identifiers </returns>
+    public List<string> SelectAllWiAirportIds()
     {
         wiAirports.Clear();
         var conn = new NpgsqlConnection(connString);
         conn.Open();
 
-        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
         using var cmd = new NpgsqlCommand("SELECT id FROM wi_airports", conn);
         using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
         List<string> ids = new List<string>();
         while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
         {
-            String id = reader.GetString(0);
+            string id = reader.GetString(0);
             ids.Add(id);
         }
 
@@ -270,7 +273,7 @@ public partial class Database : IDatabase
             id = reader.GetString(0);
             String city = reader.GetString(1);
             float lat = reader.GetFloat(2);
-            float long_ =reader.GetFloat(3);
+            float long_ = reader.GetFloat(3);
             airportToAdd = new(id, null, city, DateTime.Now, 5);
             airportToAdd.Latitude = lat;
             airportToAdd.Longitude = long_;

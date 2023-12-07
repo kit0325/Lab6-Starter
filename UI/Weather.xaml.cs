@@ -15,7 +15,7 @@ public partial class Weather : ContentPage
         try
         {
             BindingContext = MauiProgram.BusinessLogic;
-            ids = MauiProgram.BusinessLogic.SelectAllWiAirportsId();
+            ids = MauiProgram.BusinessLogic.SelectAllWiAirportIds();
         }
         catch(TargetInvocationException tie)
         {

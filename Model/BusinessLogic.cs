@@ -194,9 +194,14 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     {
         return db.SelectAllResources();
     }
-    public List<string> SelectAllWiAirportsId()
+
+    /// <summary>
+    /// Call the DB layer to get the IDs of the Wisconsin airports; mostly for error checking.
+    /// </summary>
+    /// <returns> a list object containing all ICAO-format Wisconsin airport identifiers </returns>
+    public List<string> SelectAllWiAirportIds()
     {
-        return db.SelectAllWiAirportsId();
+        return db.SelectAllWiAirportIds();
     }
 }
 
