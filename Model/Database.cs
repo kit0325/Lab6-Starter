@@ -13,6 +13,7 @@ public partial class Database : IDatabase
     ObservableCollection<Airport> airports = new();
     ObservableCollection<Airport> wiAirports = new();
     ObservableCollection<Resource> resources = new();
+    ObservableCollection<AirportPin> airportPins = new();
 
     public Database()
     {
@@ -281,6 +282,33 @@ public partial class Database : IDatabase
     {
         IConfiguration config = new ConfigurationBuilder().AddUserSecrets<Database>().Build();
         return config["CockroachDBPassword"] ?? "xYvR09EUtNehzMnSpJlojA"; // if it can't find the password, returns ... the password (this works in VS, not VSC) 
+    }
+
+    /// <summary>
+    /// This generates all of the airport pins
+    /// </summary>
+    /// <returns>an observable collection of airport pins</returns>
+    public ObservableCollection<AirportPin> GenerateAllAirportPins()
+    {
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
+        using var cmd = new NpgsqlCommand("SELECT id, name, lat, long FROM wi_airports", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String id = reader.GetString(0);
+            String name = reader.GetString(1);
+            int lat = reader.GetInt32(2);
+            int longi = reader.GetInt32(3);
+            AirportPin airportPinToAdd = new(id, name, lat, longi);
+            airportPins.Add(airportPinToAdd);
+            Console.WriteLine(airportPinToAdd);
+        }
+
+        return airportPins;
     }
 
 

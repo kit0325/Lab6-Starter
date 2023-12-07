@@ -15,5 +15,7 @@ namespace Lab6_Starter.Model
         AirportDeletionError DeleteAirport(Airport airport);
         AirportEditError UpdateAirport(Airport replacementAirport);
         ObservableCollection<Resource> SelectAllResources();
+
+        ObservableCollection<AirportPin> GenerateAllAirportPins();
     }
 }
