@@ -40,7 +40,17 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
 
     }
 
-    protected virtual void OnPropertyChanged(string propertyName)
+    /// <summary>
+    /// Gets all of the airport pins from the database
+    /// </summary>
+    /// <returns>an observable collection of airport pins</returns>
+    public ObservableCollection<AirportPin> AirportPins
+    {
+        get { return GetAirportPins(); }
+    }
+
+
+protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -194,14 +204,9 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
         return db.SelectAllResources();
     }
 
-    /// <summary>
-    /// Gets all of the airport pins from the database
-    /// </summary>
-    /// <returns>an observable collection of airport pins</returns>
     public ObservableCollection<AirportPin> GetAirportPins()
     {
         return db.GenerateAllAirportPins();
     }
-
 }
 

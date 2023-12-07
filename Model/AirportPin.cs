@@ -9,8 +9,7 @@ public class AirportPin : INotifyPropertyChanged
 {
     String id;
     String name;
-    int lat;
-    int longi;
+    Location location;
 
     public String Id
     {
@@ -31,32 +30,22 @@ public class AirportPin : INotifyPropertyChanged
             OnPropertyChanged(nameof(Name));
         }
     }
-    public int Lat
+
+    public Location Loc
     {
-        get { return lat; }
+        get { return location; }
         set
         {
-            lat = value;
-            OnPropertyChanged(nameof(Lat));
+            location = value;
+            OnPropertyChanged(nameof(Loc));
         }
     }
 
-    public int Longi
-    {
-        get { return longi; }
-        set
-        {
-            longi = value;
-            OnPropertyChanged(nameof(Longi));
-        }
-    }
-
-    public AirportPin(String id, String name, int lat, int longi)
+    public AirportPin(String id, String name, Location location)
     {
         Id = id;
         Name = name;
-        Lat = lat;
-        Longi = longi;
+        Loc = location;
     }
 
     public AirportPin() { }

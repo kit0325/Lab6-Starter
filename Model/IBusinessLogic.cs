@@ -16,6 +16,7 @@ public interface IBusinessLogic
     ObservableCollection<NearbyAirport> CalculateAllAirportDist(String startAirportId, int distance);
     ObservableCollection<Airport> GetAirports();
     ObservableCollection<Resource> GetResources();
+    ObservableCollection<AirportPin> GetAirportPins();
 
     // RoutingStrategies
     ObservableCollection<Airport> GetWisconsinAirports();
@@ -24,6 +25,4 @@ public interface IBusinessLogic
 
     ObservableCollection<Airport> FillDistances();
     double CalculateDistance(Airport start, Airport end);
-
-    ObservableCollection<AirportPin> GetAirportPins();
 }

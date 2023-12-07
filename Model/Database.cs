@@ -303,7 +303,8 @@ public partial class Database : IDatabase
             String name = reader.GetString(1);
             int lat = reader.GetInt32(2);
             int longi = reader.GetInt32(3);
-            AirportPin airportPinToAdd = new(id, name, lat, longi);
+            Location location = new(lat, longi);
+            AirportPin airportPinToAdd = new(id, name, location);
             airportPins.Add(airportPinToAdd);
             Console.WriteLine(airportPinToAdd);
         }
