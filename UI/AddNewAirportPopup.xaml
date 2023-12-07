@@ -11,7 +11,7 @@
                         <Button ImageSource="close.png" Clicked="ClosePopupButtonClicked" HeightRequest="25" WidthRequest="25" CornerRadius="50" HorizontalOptions="End"/> 
                     </FlexLayout>
 
-                    <Grid RowDefinitions=",, ,, ,, ,">
+                    <Grid RowDefinitions="*, *, * ,* ,* ,*, *">
                         <Label Grid.Row="0" Text="Airport ID" FontSize="Medium" WidthRequest="300"/>
                         <Entry Grid.Row="1" Placeholder="Id" x:Name="IdENT" WidthRequest="300" Margin="10, 0, 0, 20"/>
 
