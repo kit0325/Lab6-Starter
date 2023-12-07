@@ -5,7 +5,7 @@ using Lab6_Starter.Model;
 namespace Lab6_Solution;
 
 /// <summary>
-/// Authors: Evan Olson, Olivia Ozbaki, Alex Ceithamer
+/// Authors: Vincent Morrill, Alex Wolff, Jordyn Henrich, Keith 
 /// </summary>
 public partial class AddNewAirportPopup : Popup
 {
@@ -26,16 +26,16 @@ public partial class AddNewAirportPopup : Popup
 	{
 		// Group 1's contributions
 		DateTime dateVisited;
-         int rating;
-		 AirportAdditionError result = AirportAdditionError.NoError;
+        int rating;
+		AirportAdditionError result = AirportAdditionError.NoError;
 
-         if (DateTime.TryParse(DateVisitedENT.Text, out dateVisited) && int.TryParse(RatingENT.Text, out rating))
-         {
-             // Both parsing operations were successful.
-              result = MauiProgram.BusinessLogic.AddAirport(IdENT.Text, CityENT.Text, dateVisited, rating);
-         } else {
-			result = AirportAdditionError.InvalidDate;
-		 }
+        if (DateTime.TryParse(DateVisitedENT.Text, out dateVisited) && int.TryParse(RatingENT.Text, out rating))
+        {
+            // Both parsing operations were successful.
+            result = MauiProgram.BusinessLogic.AddAirport(IdENT.Text, CityENT.Text, dateVisited, rating);
+        } else {
+		result = AirportAdditionError.InvalidDate;
+		}
 
  		Close(result);
      }
@@ -48,6 +48,13 @@ public partial class AddNewAirportPopup : Popup
 	/// <param name="args">Arguments</param>
 	public void ClosePopupButtonClicked(System.Object sender, System.EventArgs args)
 	{
-		Close();
+		try
+		{
+			this.Close();
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Error: Unable to close the popup {ex.InnerException.Message}");
+		}
 	}
 }
