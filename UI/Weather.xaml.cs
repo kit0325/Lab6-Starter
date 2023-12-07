@@ -28,7 +28,13 @@ public partial class Weather : ContentPage
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public void OnSearch_Clicked(object sender, EventArgs e)
-    { 
+    {
+        if (entry.Text == null)
+        {
+            DisplayAlert("Error", "No airport id entered", "Ok");
+        }
+        else
+        {
             _ = entry.HideKeyboardAsync(CancellationToken.None); //close the keyboard after searching
                                                                  //Check length of Wisconsin ICAO airport is correct length of 4 characters.
             if (entry.Text.Length == CODE_LENGTH)
@@ -38,10 +44,10 @@ public partial class Weather : ContentPage
                 {
                     string searchId = entry.Text.ToUpper().Substring(1) + " ";//ids are stored with space at the end
                     if (!ids.Contains(searchId)) //ids contains IATA(3characters) not ICAO(3characters)
-                        {
-                            DisplayAlert("Error", "Airport id does not exist", "Ok");
-                            return;
-                        }
+                    {
+                        DisplayAlert("Error", "Airport id does not exist", "Ok");
+                        return;
+                    }
                     try
                     {
                         String metar = Meteorologist.GetMetar(entry.Text);
@@ -96,7 +102,7 @@ public partial class Weather : ContentPage
             {
                 DisplayAlert("Error: Invalid ICAO airport", "Not a length of 4 characters", "OK");
             }
-    
-    }
 
+        }
+    }
 }
