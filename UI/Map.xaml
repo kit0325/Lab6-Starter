@@ -12,8 +12,7 @@
         <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
     </ContentPage.ToolbarItems>
 
-    <maps:Map x:DataType="model:BusinessLogic"
-              ItemsSource="{Binding .}">
+    <maps:Map x:Name="map">
         <x:Arguments>
             <MapSpan>
                 <x:Arguments>
@@ -29,14 +28,6 @@
             </MapSpan>
         </x:Arguments>
 
-        <maps:Map.ItemTemplate>
-            <DataTemplate>
-                <maps:Pin
-                    Location="{Binding Location}"
-                            Address="{Binding Address}"
-                            Label="{Binding Id}" />
-            </DataTemplate>    
-        </maps:Map.ItemTemplate>
 
     </maps:Map>
 </ContentPage>
