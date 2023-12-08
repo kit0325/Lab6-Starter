@@ -13,7 +13,7 @@
     </ContentPage.ToolbarItems>
 
     <maps:Map x:DataType="model:BusinessLogic"
-              ItemsSource="{Binding AirportPins}">
+              ItemsSource="{Binding .}">
         <x:Arguments>
             <MapSpan>
                 <x:Arguments>
@@ -30,9 +30,10 @@
         </x:Arguments>
 
         <maps:Map.ItemTemplate>
-            <DataTemplate x:DataType="model:AirportPin">
-                <maps:Pin Location="{Binding Loc}"
-                            Address="{Binding Name}"
+            <DataTemplate>
+                <maps:Pin
+                    Location="{Binding Location}"
+                            Address="{Binding Address}"
                             Label="{Binding Id}" />
             </DataTemplate>    
         </maps:Map.ItemTemplate>

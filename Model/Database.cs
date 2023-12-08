@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Controls.Maps;
 using Npgsql; // To install this, add dotnet add package Npgsql 
 
 
@@ -13,7 +14,7 @@ public partial class Database : IDatabase
     ObservableCollection<Airport> airports = new();
     ObservableCollection<Airport> wiAirports = new();
     ObservableCollection<Resource> resources = new();
-    ObservableCollection<AirportPin> airportPins = new();
+    ObservableCollection<Pin> airportPins = new();
 
     public Database()
     {
@@ -288,7 +289,7 @@ public partial class Database : IDatabase
     /// This generates all of the airport pins
     /// </summary>
     /// <returns>an observable collection of airport pins</returns>
-    public ObservableCollection<AirportPin> GenerateAllAirportPins()
+    public ObservableCollection<Pin> GenerateAllAirportPins()
     {
         var conn = new NpgsqlConnection(connString);
         conn.Open();
@@ -301,10 +302,15 @@ public partial class Database : IDatabase
         {
             String id = reader.GetString(0);
             String name = reader.GetString(1);
-            int lat = reader.GetInt32(2);
-            int longi = reader.GetInt32(3);
+            double lat = reader.GetDouble(2);
+            double longi = reader.GetDouble(3);
             Location location = new(lat, longi);
-            AirportPin airportPinToAdd = new(id, name, location);
+            
+            Pin airportPinToAdd = new Pin { 
+                Label = id, 
+                Address = name, 
+                Type = PinType.Place, 
+                Location = location };
             airportPins.Add(airportPinToAdd);
             Console.WriteLine(airportPinToAdd);
         }

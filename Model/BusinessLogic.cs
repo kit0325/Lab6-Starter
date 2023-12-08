@@ -6,6 +6,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.ComponentModel;
 using System.Linq;
 using Lab6_Starter;
+using Microsoft.Maui.Controls.Maps;
 
 namespace Lab6_Starter.Model;
 
@@ -44,7 +45,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     /// Gets all of the airport pins from the database
     /// </summary>
     /// <returns>an observable collection of airport pins</returns>
-    public ObservableCollection<AirportPin> AirportPins
+    public ObservableCollection<Pin> AirportPins
     {
         get { return GetAirportPins(); }
     }
@@ -204,9 +205,10 @@ protected virtual void OnPropertyChanged(string propertyName)
         return db.SelectAllResources();
     }
 
-    public ObservableCollection<AirportPin> GetAirportPins()
+    public ObservableCollection<Pin> GetAirportPins()
     {
         return db.GenerateAllAirportPins();
     }
+    
 }
 
