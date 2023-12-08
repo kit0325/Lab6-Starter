@@ -27,6 +27,11 @@ public partial class Map : ContentPage
 		{
 			map.Pins.Add(pin);
 		}
-	}
+		var visitedPinsToAdd = MauiProgram.BusinessLogic.GetVisitedAirportPins();
+        foreach (var pin in pinsToAdd)
+        {
+            map.Pins.Add(pin);
+        }
+    }
 	
 }

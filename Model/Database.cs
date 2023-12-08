@@ -15,6 +15,7 @@ public partial class Database : IDatabase
     ObservableCollection<Airport> wiAirports = new();
     ObservableCollection<Resource> resources = new();
     ObservableCollection<Pin> airportPins = new();
+    ObservableCollection<Pin> visitedAirportPins = new();
 
     public Database()
     {
@@ -317,7 +318,36 @@ public partial class Database : IDatabase
 
         return airportPins;
     }
+    public ObservableCollection<Pin> GenerateAllVisitedAirportPins()
+    {
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
 
+        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
+        using var cmd = new NpgsqlCommand("SELECT va.id,  wa.id, wa.name, wa.lat, wa.long FROM wi_airports wa JOIN visited_airports va ON wa.id = va.id WHERE va.id = wa.id", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String id = reader.GetString(1);
+            String name = reader.GetString(2);
+            double lat = reader.GetDouble(3);
+            double longi = reader.GetDouble(4);
+            Location location = new(lat, longi);
+
+            Pin airportPinToAdd = new Pin
+            {
+                Label = "Visited Airport",
+                Address = name,
+                Type = PinType.Place,
+                Location = location
+            };
+            visitedAirportPins.Add(airportPinToAdd);
+            Console.WriteLine(airportPinToAdd);
+        }
+
+        return airportPins;
+    }
 
 }
 

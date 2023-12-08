@@ -49,9 +49,16 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     {
         get { return GetAirportPins(); }
     }
+    /// <summary>
+    /// Displays Visited Airport Pins
+    /// </summary>
+    public ObservableCollection<Pin> VisitedAirportPins
+    {
+        get { return GetVisitedAirportPins(); }
+    }
 
 
-protected virtual void OnPropertyChanged(string propertyName)
+    protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -204,10 +211,21 @@ protected virtual void OnPropertyChanged(string propertyName)
     {
         return db.SelectAllResources();
     }
-
+    /// <summary>
+    /// Get all airport pins for all airports in Wisconsin
+    /// </summary>
+    /// <returns>ObservableCollection<Pin></returns>
     public ObservableCollection<Pin> GetAirportPins()
     {
         return db.GenerateAllAirportPins();
+    }
+    /// <summary>
+    /// Gets all visited airports and populates the pins.
+    /// </summary>
+    /// <returns>ObservableCollection<Pin></returns>
+    public ObservableCollection<Pin> GetVisitedAirportPins()
+    {
+        return db.GenerateAllVisitedAirportPins();
     }
     
 }

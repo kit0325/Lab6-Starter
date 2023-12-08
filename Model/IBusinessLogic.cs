@@ -18,6 +18,7 @@ public interface IBusinessLogic
     ObservableCollection<Airport> GetAirports();
     ObservableCollection<Resource> GetResources();
     ObservableCollection<Pin> GetAirportPins();
+    ObservableCollection<Pin> GetVisitedAirportPins();
 
     // RoutingStrategies
     ObservableCollection<Airport> GetWisconsinAirports();

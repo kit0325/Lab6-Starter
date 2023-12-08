@@ -18,5 +18,6 @@ namespace Lab6_Starter.Model
         ObservableCollection<Resource> SelectAllResources();
 
         ObservableCollection<Pin> GenerateAllAirportPins();
+        ObservableCollection<Pin> GenerateAllVisitedAirportPins();
     }
 }
