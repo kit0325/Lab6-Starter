@@ -94,6 +94,28 @@ public partial class Database : IDatabase
         return wiAirports;
     }
 
+    /// <summary>
+    /// Get only the IDs of the Wisconsin airports from the DB; mostly for error checking.
+    /// </summary>
+    /// <returns> a list object containing all IATA-format Wisconsin airport identifiers </returns>
+    public List<string> SelectAllWiAirportIds()
+    {
+        wiAirports.Clear();
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        using var cmd = new NpgsqlCommand("SELECT id FROM wi_airports", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+        List<string> ids = new List<string>();
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            string id = reader.GetString(0);
+            ids.Add(id);
+        }
+
+        return ids;
+    }
+
 
     // Fills resources ObservableCollection with all the resources in the database
     public ObservableCollection<Resource> SelectAllResources()
