@@ -50,6 +50,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     {
         return db.SelectAirport(id, UserId);
     }
+    
 /// <summary>
 /// Checks to make sure that all airport fields are legitimate
 /// </summary>
@@ -194,5 +195,13 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
         return db.SelectAllResources();
     }
 
+    /// <summary>
+    /// Call the DB layer to get the IDs of the Wisconsin airports; mostly for error checking.
+    /// </summary>
+    /// <returns> a list object containing all IATA-format Wisconsin airport identifiers </returns>
+    public List<string> SelectAllWiAirportIds()
+    {
+        return db.SelectAllWiAirportIds();
+    }
 }
 
