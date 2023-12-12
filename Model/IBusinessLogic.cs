@@ -27,4 +27,6 @@ public interface IBusinessLogic
 
     ObservableCollection<Airport> FillDistances();
     double CalculateDistance(Airport start, Airport end);
+    
+    List<string> SelectAllWiAirportIds();
 }
