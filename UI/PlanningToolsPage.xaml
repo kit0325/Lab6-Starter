@@ -8,28 +8,82 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="logout.png" Text="Logout" Clicked="Logout_Clicked"/>
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <!--Routing
-            Strategies Button-->
-            <Button Text="Routing Strategies" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnRoutingButtonClicked" />
-            <!--Nearby
-            Airports Button-->
-            <Button Text="Nearby Airports" Scale="1.1" Margin="30" Clicked="OnNearbyAirportsButtonClicked" WidthRequest="140" />
-        </HorizontalStackLayout>
+    <Grid>
 
-        <!--Lower
-        layer of buttons. T-shirt redemption can go into this horizontal stack -->
-        <HorizontalStackLayout>
-            <Button Text="WX" Scale="1.1" Margin="30" WidthRequest="140" Clicked="OnWeatherButtonClicked" />
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+
+
+        <StackLayout 
+ 
+Grid.Row="0"
+ 
+HorizontalOptions="Center" VerticalOptions="Center" >
+            <Button Text="Routing Strategies"
+              
+              Clicked="OnRoutingButtonClicked"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              BorderColor="Black"
+              BorderWidth="2"
+              HeightRequest="175"
+              WidthRequest="400"
+              />
+        </StackLayout>
+        <StackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center">
+            <Button Text="Nearby Airports"
+            Scale="1.1"
+            Margin="30"
+            Clicked="OnNearbyAirportsButtonClicked"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            BorderColor="Black"
+            BorderWidth="2"
+            HeightRequest="200"
+            WidthRequest="400">
+            </Button>
+        </StackLayout>
+
+
+
+
+        <StackLayout Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+            <Button Text="WX"
+              Scale="1.1"
+              Margin="30"
+              Clicked="OnWeatherButtonClicked"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              BorderColor="Black"
+              BorderWidth="2"
+              HeightRequest="200"
+              WidthRequest="400"
+
+
+              />
+        </StackLayout>
+
+        <StackLayout Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center">
             <Button Text="Rewards"
-                Padding="5,2"
-                Margin="20,0,0,0"
-                WidthRequest="150"
-                HeightRequest="50"
-                FontSize="Medium"
-                Clicked="OnRewardsButtonClicked" />
-
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+              Scale="1.1"
+              Margin="20,0,0,0"
+              FontSize="Medium"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              Clicked="OnRewardsButtonClicked"
+              BorderColor="Black"
+              BorderWidth="2"
+              HeightRequest="200"
+              WidthRequest="400" 
+              />
+        </StackLayout>
+    </Grid>
 </ContentPage> 
