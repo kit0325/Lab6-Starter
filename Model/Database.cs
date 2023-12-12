@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Controls.Maps;
 using Npgsql; // To install this, add dotnet add package Npgsql 
 
 
@@ -13,6 +14,8 @@ public partial class Database : IDatabase
     ObservableCollection<Airport> airports = new();
     ObservableCollection<Airport> wiAirports = new();
     ObservableCollection<Resource> resources = new();
+    ObservableCollection<Pin> airportPins = new();
+    ObservableCollection<Pin> visitedAirportPins = new();
 
     public Database()
     {
@@ -305,6 +308,68 @@ public partial class Database : IDatabase
         return config["CockroachDBPassword"] ?? "xYvR09EUtNehzMnSpJlojA"; // if it can't find the password, returns ... the password (this works in VS, not VSC) 
     }
 
+    /// <summary>
+    /// This generates all of the airport pins
+    /// </summary>
+    /// <returns>an observable collection of airport pins</returns>
+    public ObservableCollection<Pin> GenerateAllAirportPins()
+    {
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
+        using var cmd = new NpgsqlCommand("SELECT id, name, lat, long FROM wi_airports", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String id = reader.GetString(0);
+            String name = reader.GetString(1);
+            double lat = reader.GetDouble(2);
+            double longi = reader.GetDouble(3);
+            Location location = new(lat, longi);
+            
+            Pin airportPinToAdd = new Pin { 
+                Label = id, 
+                Address = name, 
+                Type = PinType.Place, 
+                Location = location };
+            airportPins.Add(airportPinToAdd);
+            Console.WriteLine(airportPinToAdd);
+        }
+
+        return airportPins;
+    }
+    public ObservableCollection<Pin> GenerateAllVisitedAirportPins()
+    {
+        var conn = new NpgsqlConnection(connString);
+        conn.Open();
+
+        // using() ==> disposable types are properly disposed of, even if there is an exception thrown 
+        using var cmd = new NpgsqlCommand("SELECT va.id,  wa.id, wa.name, wa.lat, wa.long FROM wi_airports wa JOIN visited_airports va ON wa.id = va.id WHERE va.id = wa.id", conn);
+        using var reader = cmd.ExecuteReader(); // used for SELECT statement, returns a forward-only traversable object
+
+        while (reader.Read()) // each time through we get another row in the table (i.e., another Airport)
+        {
+            String id = reader.GetString(1);
+            String name = reader.GetString(2);
+            double lat = reader.GetDouble(3);
+            double longi = reader.GetDouble(4);
+            Location location = new(lat, longi);
+
+            Pin airportPinToAdd = new Pin
+            {
+                Label = "Visited Airport",
+                Address = name,
+                Type = PinType.Place,
+                Location = location
+            };
+            visitedAirportPins.Add(airportPinToAdd);
+            Console.WriteLine(airportPinToAdd);
+        }
+
+        return airportPins;
+    }
 
 }
 
