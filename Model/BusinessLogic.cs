@@ -25,7 +25,7 @@ public partial class BusinessLogic : IBusinessLogic, INotifyPropertyChanged
     private const int MIN_ID_LENGTH = 3;
     private const int MAX_ID_LENGTH = 4;
 
-    public String UserId {get;set;} // by introducing this as a property, we don't have to change the UI too much
+    public String UserId {get;set;} // by introducing this as a property, we don't have to change the UI that much
     public event PropertyChangedEventHandler PropertyChanged;
 
     public ObservableCollection<Airport> Airports
